@@ -1,0 +1,276 @@
+/*--------------------------------------------------------------------
+
+モーダルウィンドウ
+
+------------------------------------------------------------------- */
+@charset "UTF-8";
+
+
+
+/**
+* 基本部分
+*/
+#modal,
+#white_modal {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	left: 0;
+	top: 0;
+	z-index: 200;
+}
+#white_modal .btnArea {
+	margin-top: 40px;
+	text-align: center;
+}
+#white_modal .btnArea a,
+#white_modal .btnArea input {
+	background: linear-gradient(#f2f2f2, #e0e0e0);
+	padding: 0.5em 1em;
+	border-radius: 2px;
+	border: none;
+	font-size: 13px;
+	color: #333;
+	vertical-align: middle;
+}
+#white_modal .btnArea a:hover,
+#white_modal .btnArea input:hover {
+	cursor: pointer;
+	background: #ccc;
+}
+#white_modal {
+	background: rgba(255, 255, 255, 0.97);
+}
+#modal .wrapper,
+#white_modal .wrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+#modal .bg,
+#white_modal .bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 30;
+}
+#modal .box,
+#white_modal .box {
+	position: absolute;
+	z-index: 40;
+	padding: 40px;
+	background: #eee;
+	border-radius: 2px;
+}
+#white_modal .box {
+	background: #fff;
+	padding: 0;
+}
+#modal .box {
+	width: 415px;
+	height: 250px;
+	box-shadow: 2px 2px 20px #000;
+	border: 2px solid #333;
+}
+#white_modal .box {
+	width: 520px;
+}
+#modal h3 {
+	border-bottom: 1px solid #ccc;
+}
+#white_modal h3 {
+	text-align: center;
+}
+#summary01 > p {
+	text-align: center;
+	margin: 20px 0;
+}
+#white_modal h3 span {
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+#postWindow h3 span {
+	background-image: url('../img/ico_post.png');
+	padding: 10px 0 10px 51px;
+	background-size: 41px 37px;
+}
+#todoWindow h3 span {
+	background-image: url('../img/ico_summary01.png');
+	padding: 20px 0 20px 55px;
+	background-size: 35px 45px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:2),
+(min-resolution: 2dppx) {
+	#postWindow h3 span {
+		background-image: url('../img/ico_post-retina.png');
+	}
+	#todoWindow h3 span {
+		background-image: url('../img/ico_summary01-retina.png');
+	}
+}
+#white_modal textarea {
+	width: 476px;
+	padding: 20px;
+	border: 2px solid #ccc;
+	border-radius: 2px;
+	font-size: 13px;
+	color: #333;
+}
+
+
+
+/**
+* ToDoリスト
+*/
+#summaryWindow {
+	max-height: 550px;
+	overflow: auto;
+}
+#todoWindow dt,
+.todoList dt {
+	background-color: #8fc31f;
+	border-radius: 2px;
+	line-height: 1;
+	position: relative;
+	margin-top: 40px;
+}
+#todoWindow dt:first-child,
+.todoList dt:first-child {
+	margin-top: 0;
+}
+#todoWindow dt h4,
+.todoList dt h4 {
+	font-size: 18px;
+	padding: 5px;
+	color: #fff;
+}
+#todoWindow .addBtn,
+.todoList .addBtn {
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 40px;
+	border-radius: 0 2px 2px 0;
+	background: #111;
+	background-image: url('../img/ico_plus.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 15px 15px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:2),
+(min-resolution: 2dppx) {
+	#todoWindow .addBtn,
+	.todoList .addBtn {
+		background-image: url('../img/ico_plus-retina.png');
+	}
+}
+#todoWindow .addBtn a,
+.todoList .addBtn a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+#todoWindow dd,
+.todoList dd {
+	padding: 5px 10px 5px 50px;
+	min-height: 42px;
+	background-image: url('../img/ico_notchecked02.png');
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: 32px 32px;
+	border-bottom: 1px dashed #ccc;
+}
+#todoWindow dd:hover,
+.todoList dd:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+#todoWindow .complete,
+.todoList .complete {
+	background-image: url('../img/ico_checked02.png');
+}
+@media screen and (-webkit-min-device-pixel-ratio:2),
+(min-resolution: 2dppx) {
+	#todoWindow dd,
+	.todoList dd {
+		background-image: url('../img/ico_notchecked02-retina.png');
+	}
+	#todoWindow .complete,
+	.todoList .complete {
+		background-image: url('../img/ico_checked02-retina.png');
+	}
+}
+#todoWindow dd p,
+.todoList dd p {
+	padding-top: 10px;
+}
+.todoList > p {
+	text-align: center;
+	margin-bottom: 20px;
+}
+#newTodo,
+#txtAlter {
+	margin-top: 1em;
+	border: none;
+	font-size: 13px;
+	width: 100%;
+	color: #333;
+	padding: 0;
+	line-height: 1.78;
+	background: transparent;
+}
+#newTodoSubmit,
+#alterTodoSubmit {
+	display: none;
+}
+
+
+
+
+/**
+* まとめ
+*/
+
+#summaryWindow h3 span {
+	background-image: url('../img/ico_summary01.png');
+	padding: 20px 0 20px 55px;
+	background-size: 35px 45px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:2),
+(min-resolution: 2dppx) {
+	#summaryWindow h3 span {
+		background-image: url('../img/ico_summary01-retina.png');
+	}
+}
+#summary02 h4 {
+	font-size: 14px;
+	margin-top: 40px;
+	background: #eee;
+	border-left: 5px solid #3460cf;
+	padding: 0.3em 1em;
+}
+#summary02 h5 {
+	margin-bottom: 10px;
+}
+#summary02 h5 span {
+	background-color: #22ac38;
+	color: #fff;
+	padding: 0.2em 0.5em;
+	border-radius: 2px;
+}
+#summary02 > form > ul > li {
+	margin-top: 40px;
+}
+#summary02 > form > ul > li > dl > dt {
+	width: 150px;
+	float: left;
+}
+#summary02 > form > ul > li > dl > dd {
+	float: left;
+	width: 370px;
+}
+#summary02 textarea {
+	margin-top: 40px;
+}

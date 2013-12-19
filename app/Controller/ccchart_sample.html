@@ -1,0 +1,25 @@
+<script src="http://ccchart.com/js/ccchart.js" charset="utf-8"></script>
+<canvas id="hoge"></canvas>
+<script>
+var chartdata51 = {
+
+	"config": {
+		"title": "Option textColor",
+		"subTitle": "各文字列の色(データ値valColor以外)をまとめてcolor文字列で指定できます。",
+		"type": "area",
+		"bg": "#fff",
+		"xColor": "rgba(150,150,150,0.6)",
+		"colorSet": ["rgba(0,150,250,0.5)","rgba(200,0,250,0.4)","rgba(250,250,0,0.3)"],
+		"textColor": "#444",
+		"useMarker": "arc"
+	},
+
+	"data": [
+		["月",1,2,3,4,5,6,7,8,9,10,11,12],
+		["コーヒー",52,57,44,50,60,55,68,80,64,41,57,78],
+		["ジュース",30,45,56,40,80,68,76,90,75,52,57,55],
+		["ウーロン",20,23,12,20,42,50,72,63,30,20,32,50]
+	]
+};
+ccchart.init("hoge", chartdata51)
+</script>
