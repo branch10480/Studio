@@ -65,7 +65,7 @@
 	border-radius: 2px;
 }
 #white_modal .box {
-	background: #fff;
+	background: transparent;
 	padding: 0;
 }
 #modal .box {
