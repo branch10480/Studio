@@ -423,6 +423,8 @@ footer p {
 }
 #friend_now dt {
 	position: absolute;
+	border-radius: 2px;
+	overflow: hidden;
 }
 #friend_now dd {
 	padding-left: 59px;
@@ -496,13 +498,64 @@ footer p {
 	float: left;
 }
 #fsearch > .result {
-	width: 410px;
-	padding: 40px;
-	border: solid 1px #ccc;
 	background-position: left top;
 	background-repeat: no-repeat;
 	background-size: 492px 59px;
 	/*background-image: url('../img/bg_fsearch_t.png');*/
+}
+#fsearch > .result section {
+	width: 492px;
+	margin-top: 40px;
+}
+#fsearch > .result section:first-child {
+	width: 410px;
+	padding: 40px;
+	border: solid 1px #ccc;
+	margin-top: 0;
+}
+#fsearch .graphArea {
+	width: 492px;
+}
+#fsearch .graphArea > div {
+	background: #888;
+	color: #fff;
+	border-radius: 4px;
+	overflow: hidden;
+	width: 140px;
+	margin-bottom: 10px;
+}
+#fsearch .graphArea > div > * {
+	float: left;
+}
+#fsearch .graphArea a {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	width: 25px;
+	height: 25px;
+	color: #fff;
+	font-size: 11px;
+}
+#fsearch .graphArea a:hover {
+	background: #ddd;
+	color: #666;
+}
+#fsearch .graphArea h2 {
+	font-size: 14px;
+	margin: 40px 0 20px;
+	background: #eee;
+	border-left: 5px solid #3460cf;
+	padding: 0.3em 1em;
+}
+#fsearch .graphArea h3 {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	width: 90px;
+	padding: 3px 0 0;
+	max-height: 25px;
+	font-size: 11px;
+	margin: 0;
 }
 /*@media screen and (-webkit-min-device-pixel-ratio:2),
 (min-resolution: 2dppx) {
@@ -583,7 +636,7 @@ footer p {
 }
 #fsearchArea .result {
 	height: 600px;
-	overflow: auto;\
+	overflow: auto;
 	border-bottom: 1px solid #ccc;
 }
 #fsearchArea .result .current {
@@ -616,6 +669,8 @@ footer p {
 }
 #fsearchArea dt {
 	width: 50px;
+	border-radius: 2px;
+	overflow: hidden;
 }
 #fsearchArea dd {
 	margin-left: 20px;
@@ -666,6 +721,9 @@ footer p {
 	border-radius: 4px;
 	font-size: 12px;
 	line-height: 1;
+}
+#fsearch .graphArea {
+	opacity: 0;
 }
 
 

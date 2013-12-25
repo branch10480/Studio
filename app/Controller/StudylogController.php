@@ -71,6 +71,63 @@ class StudylogController extends AppController {
 
 
 	/**
+	* 勉強ログデータ取得 - Ajax
+	*/
+	public function getDoubleStudylog() {
+		$result = array();
+		// if ($this->RequestHandler->isAjax()) {
+			// 正常処理
+			// if ($this->request->is('post')) {
+				// $mailaddress = $_POST['id'];
+				$this->layout = 'ajax';
+				$loginId = $this->Session->read('Auth.id');
+				$friendId = $_POST['friend_id'];
+
+				$query = "SELECT ";
+				$query .= " Studylog.date, SUM(Studytime.time) AS studytime ";
+				$query .= "FROM ";
+				$query .= " studylogs AS Studylog ";
+				$query .= "JOIN ";
+				$query .= " studytimes AS Studytime ";
+				$query .= "ON ";
+				$query .= " Studylog.id = Studytime.studylog_id ";
+				$query .= "WHERE ";
+				$query .= " Studylog.account_id = " . $loginId . " ";
+				$query .= "AND ";
+				$query .= " DATE_FORMAT(Studylog.date,'%Y%m') = '" . $_POST['year'] . sprintf('%02d', $_POST['month']) . "' ";
+				$query .= "GROUP BY ";
+				$query .= " Studylog.date ";
+				$query .= "  ";
+				$result[] = $this->Studytime->query($query);
+
+				$query = "SELECT ";
+				$query .= " Studylog.date, SUM(Studytime.time) AS studytime ";
+				$query .= "FROM ";
+				$query .= " studylogs AS Studylog ";
+				$query .= "JOIN ";
+				$query .= " studytimes AS Studytime ";
+				$query .= "ON ";
+				$query .= " Studylog.id = Studytime.studylog_id ";
+				$query .= "WHERE ";
+				$query .= " Studylog.account_id = " . $friendId . " ";
+				$query .= "AND ";
+				$query .= " DATE_FORMAT(Studylog.date,'%Y%m') = '" . $_POST['year'] . sprintf('%02d', $_POST['month']) . "' ";
+				$query .= "GROUP BY ";
+				$query .= " Studylog.date ";
+				$query .= "  ";
+				$result[] = $this->Studytime->query($query);
+			// }
+		// } else {
+		// 	// 不正処理
+		// }
+		$this->set(array(
+			'result' => $result
+			));
+	}
+
+
+
+	/**
 	* 勉強ログ詳細を取得 - Ajax
 	*/
 	public function getStudylogDetail() {

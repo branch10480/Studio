@@ -9,6 +9,17 @@
 		<section class="profile">
 			<p>ここに検索結果が表示されます</p>
 		</section>
+		<section class="graphArea">
+			<h2>勉強時間の推移</h2>
+			<script src="http://ccchart.com/js/ccchart.js" charset="utf-8"></script>
+			<canvas width="984" id="hoge" style="width: 492px"></canvas>
+			<!-- カレンダー -->
+			<div class="clearfix">
+				<div><a id="prevMonth" href="#">←</a></div>
+				<h3 class="calHeader">2013年 12月</h3>
+				<div><a id="nextMonth" href="#">→</a></div>
+			</div>
+		</section>
 	</div>
 	<div id="fsearchArea">
 		<ul class="tab clearfix">
