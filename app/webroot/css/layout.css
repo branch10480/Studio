@@ -8,7 +8,7 @@ body {
 	background: #fff;
 }
 body, textarea{
-	font-family: "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+	font-family: Helvetica Neue,'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
 }
 a {
 	color: #666;
@@ -838,6 +838,7 @@ footer p {
 	padding: 0.5em 0.7em;
 	color: #fff;
 	line-height: 1;
+	font-size: 11px;
 }
 #studylog .reflection p {
 	font-size: 12px;
@@ -1034,7 +1035,7 @@ footer p {
 }
 #page_profile .detail dd {
 	padding-left: 71px;
-	font-size: 11px;
+	font-size: 12px;
 }
 #page_profile .detail li {
 	background: #999;
@@ -1132,6 +1133,7 @@ footer p {
 #page_profile section.reflection {
 	position: relative;
 	padding-top: 5px;
+	font-size: 12px;
 }
 #page_profile section.reflection h2 {
 	font-size: 18px;
@@ -1166,4 +1168,69 @@ footer p {
 #page_profile section.reflection > .clearfix > section:first-child {
 	width: 297px;
 	margin-left: 0;
+}
+#page_profile section.reflection h3 {
+	background: #85bb13;
+	border-radius: 2px;
+	padding: 0.5em 0.7em;
+	color: #fff;
+	line-height: 1;
+	font-size: 11px;
+	margin: 20px 0;
+}
+#page_profile .todo dt {
+	color: #d925e9;
+	margin-top: 20px;
+}
+#page_profile .todo dd {
+	margin-top: 5px;
+	border-top: 1px solid #ccc;
+}
+#page_profile .todo li {
+	padding: 0.3em 0.3em 0.3em 30px;
+	border-bottom: 1px solid #ccc;
+	font-size: 12px;
+	background-image: url('../img/ico_notchecked01.png');
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: 22px 22px;
+}
+#page_profile .todo .checked {
+	background-image: url('../img/ico_checked01.png');
+}
+@media screen and (-webkit-min-device-pixel-ratio:2),
+(min-resolution: 2dppx) {
+	#page_profile .todo li {
+		background-image: url('../img/ico_notchecked01-retina.png');
+	}
+	#page_profile .todo .checked {
+		background-image: url('../img/ico_checked01-retina.png');
+	}
+}
+#page_profile .reflection section:first-child ul {
+	overflow: hidden;
+	margin-top: 20px;
+}
+#page_profile .reflection section:first-child li {
+	float: left;
+	width: 103px;
+	background: #ccc;
+	height: 103px;
+	background: linear-gradient(#F2F2F2, #E0E0E0) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border-radius: 1px;
+	text-align: center;
+	margin: 0 10px 10px 0;
+}
+#page_profile .reflection section:first-child li section {
+	display: table-cell;
+	height: 103px;
+	width: 103px;
+	vertical-align: middle;
+}
+#page_profile .reflection section:first-child li h4 {
+	font-size: 11px;
+}
+#page_profile .reflection section:first-child li p {
+	font-size: 28px;
+	color: #666;
 }
