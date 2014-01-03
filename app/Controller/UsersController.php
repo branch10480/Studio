@@ -5,7 +5,7 @@ class UsersController extends AppController {
 
 
 	// public $components = array('DebugKit.Toolbar');	// コントローラーの処理を拡張するcomponentを指定
-	public $uses = array('Account');				// 使用するモデル
+	public $uses = array('Account', 'MyTarget', 'Target');				// 使用するモデル
 	public $components = array('RequestHandler', 'MyAuth');
 
 
@@ -203,5 +203,59 @@ class UsersController extends AppController {
 			'result' => $result,
 			'msg' => $msg
 			));
+	}
+
+
+
+	/**
+	* プロフィールページ
+	*/
+	public function profile( $userId_ = '00' ) {
+		$userId = '';
+
+		// 表示するユーザの決定
+		if ($userId_ === '00') {
+			$userId = $this->Session->read('Auth.id');
+		}
+
+		// userIdを元にユーザプロフィール取得
+		$params = array(
+					'conditions' => array(
+						'Account.id' => $userId
+						)
+					);
+		$result = $this->Account->find('first', $params);
+		$this->set(array(
+			'title_for_layout' => ' | プロフィール',
+			'user_id' => $result['Account']['id'],
+			'user_name' => $result['Account']['name'],
+			'user_introduction' => $result['Account']['introduction'],
+			'user_img_ext' => $result['Account']['img_ext'],
+			'user_sex' => $result['Account']['sex']
+			));
+
+		// 年齢の計算
+		$now = date('Ymd');
+		$birthday = str_replace('-', '', $result['Account']['birthday']);
+		$age = floor(($now - $birthday) / 10000);
+		$this->set('age', $age);
+
+		// 目標を取得
+		$query = 'SELECT ';
+		$query .= ' Target.name ';
+		$query .= 'FROM ';
+		$query .= ' mytargets AS MyTarget ';
+		$query .= 'JOIN ';
+		$query .= ' accounts AS Account ';
+		$query .= 'ON ';
+		$query .= ' MyTarget.account_id = Account.id ';
+		$query .= 'JOIN ';
+		$query .= ' targets AS Target ';
+		$query .= 'ON ';
+		$query .= ' MyTarget.target_id = Target.id ';
+		$query .= 'WHERE ';
+		$query .= ' MyTarget.account_id = ' . $userId . ' ';
+		$result = $this->MyTarget->query($query);
+		$this->set('targets', $result);
 	}
 }

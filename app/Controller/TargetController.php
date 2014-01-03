@@ -20,7 +20,7 @@ class TargetController extends AppController {
 	}
 
 	public function index() {
-		$this->set('title_for_layout', '');
+		$this->set('title_for_layout', ' | 目標');
 	}
 
 
@@ -147,19 +147,12 @@ class TargetController extends AppController {
 				$loginId = $this->Session->read('Auth.id');
 				$targetId = $_POST['target_id'];
 
-				// 副問い合わせ
 				$query = "DELETE FROM ";
 				$query .= " mytargets ";
 				$query .= "WHERE ";
 				$query .= " account_id = " . $loginId . " ";
 				$query .= "AND ";
 				$query .= " target_id = " . $targetId . " ";
-				$query .= "  ";
-				$query .= "  ";
-				$query .= "  ";
-				$query .= "  ";
-				$query .= "  ";
-				$query .= "  ";
 				$result = $this->Mytarget->query($query) ? 'true' : 'false';
 			}
 		} else {

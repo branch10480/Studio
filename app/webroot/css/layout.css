@@ -979,3 +979,191 @@ footer p {
 }
 
 
+
+/* Profile
+----------------------------------------------------------------------*/
+#page_profile > * {
+	float: left;
+}
+#page_profile > .left {
+	width: 259px;
+	margin-right: 40px;
+}
+#page_profile > .right {
+	width: 534px;
+}
+#page_profile #profileHeader {
+	border: 1px solid #ccc;
+	padding: 20px;
+	border-radius: 2px;
+}
+#page_profile #profileHeader > * {
+	float: left;
+}
+#page_profile #profileHeader dt {
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+}
+#page_profile #profileHeader dt img {
+	border-radius: 2px;
+}
+#page_profile #profileHeader dd {
+	font-size: 11px;
+	margin-left: 20px;
+}
+#page_profile #profileHeader dd h1 {
+	font-size: 13px;
+	padding-top: 0.3em;
+}
+#page_profile #profileHeader dd a {
+	color: #d925e9;
+}
+#page_profile #profileHeader dd a:hover {
+	text-decoration: underline;
+}
+#page_profile .detail {
+	margin-top: 20px;
+}
+#page_profile .detail dt {
+	position: absolute;
+	font-size: 12px;
+	color: #7bad56;
+	width: 50px;
+	text-align: right;
+}
+#page_profile .detail dd {
+	padding-left: 71px;
+	font-size: 11px;
+}
+#page_profile .detail li {
+	background: #999;
+	font-size: 11px;
+	border-radius: 2px;
+	color: #fff;
+	display: inline-block;
+	line-height: 1;
+	padding: 0.3em 0.5em 0.2em;
+}
+#page_profile .detail .targets {
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	border-bottom: dashed 1px #ccc;
+}
+#page_profile > .right {
+	text-align: left;
+}
+#page_profile > .right > section {
+	margin: 40px 0;
+}
+#page_profile > .right > section {
+	margin: 0 0 40px;
+}
+#page_profile > .right h2 {
+	border-left: 5px solid #d925e9;
+	font-size: 12px;
+	background: #eee;
+	padding: 5px 10px;
+}
+#page_profile .cal div.clearfix {
+	background: #666;
+}
+#page_profile .cal div.clearfix > * {
+	float: left;
+}
+#page_profile .cal div.clearfix a {
+	color: #fff;
+	padding: 8px 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+#page_profile .cal div.clearfix a:hover {
+	background: #ccc;
+	color: #333;
+}
+#page_profile .cal div.clearfix > div {
+	width: 40px;
+}
+#page_profile .cal h1 {
+	width: 454px;
+	color: #fff;
+	text-align: center;
+	padding: 8px 0;
+}
+#page_profile .cal ul {
+	width: 532px;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	padding: 20px 0;
+}
+#page_profile .cal li {
+	float: left;
+	width: 65px;
+	height: 25px;
+	margin: 5px;
+	text-align: right;
+	font-weight: bold;
+	font-size: 12px;
+}
+#page_profile .cal li a {
+	display: block;
+	width: 62px;
+	height: 25px;
+	text-align: right;
+	border-radius: 6px;
+	line-height: 1;
+	padding: 3px 3px 0 0;
+}
+#page_profile .cal li a.exists {
+	background-color: #71EDF5;
+}
+#page_profile .cal li a:hover {
+	background: #ce4a34;
+	color: #fff;
+}
+#page_profile .cal li.current a {
+	background: #999;
+	color: #fff;
+	cursor: default;
+}
+#page_profile section.reflection {
+	position: relative;
+	padding-top: 5px;
+}
+#page_profile section.reflection h2 {
+	font-size: 18px;
+	font-weight: normal;
+	line-height: 1;
+	border: 0;
+	padding: 0;
+	position: relative;
+	background: transparent;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#page_profile section.reflection h2 span {
+	background: #fff;
+	padding-right: 20px;
+}
+#page_profile section.reflection em {
+	font-size: 28px;
+	font-style: normal;
+}
+#page_profile section.reflection hr {
+	width: 534px;
+	border: 0;
+	border-top: 1px dashed #ccc;
+}
+#page_profile section.reflection > .clearfix > * {
+	float: left;
+	width: 217px;
+	margin-left: 20px;
+}
+#page_profile section.reflection > .clearfix > section:first-child {
+	width: 297px;
+	margin-left: 0;
+}
