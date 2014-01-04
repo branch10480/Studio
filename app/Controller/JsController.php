@@ -81,7 +81,7 @@ function writePosts(data) {
 				<dl>\
 					<dt><img src=\"<?php echo rootUrl . "img/profile/" ?>' + data[i]['Account']['id'] + '.jpg" alt="' + data[i]['Account']['name'] + '" width="75" height="75" /></dt>\
 					<dd>\
-						<h2>' + data[i]['Account']['name'] + '</h2>\
+						<h2><a href="<?php echo rootUrl ?>users/profile/' + data[i]['Account']['id'] + '">' + data[i]['Account']['name'] + '</a></h2>\
 						<p>' + data[i]['Post']['text'].replace('\n', '<br />') + '</p>\
 						';
 		if (data[i]['Post']['img_ext'] !== null) {
@@ -717,13 +717,10 @@ function drawStudytimeGraph() {
 		console.log("success");
 		console.log(data);
 
-		// 1ヶ月勉強していなかったときの処理
-		// if (data.length === 0) {
-			for (var i=0; i<daysInMonth(); i++) {
-				myStudytimeData[myStudytimeData.length] = 0;
-				friendStudytimeData[friendStudytimeData.length] = 0
-			}
-		// }
+		for (var i=0; i<daysInMonth(); i++) {
+			myStudytimeData[myStudytimeData.length] = 0;
+			friendStudytimeData[friendStudytimeData.length] = 0
+		}
 
 		var dateStr = year_ + '-' + sprintf('%02d', +month_+1) + '-';
 		for (var i=0; i<data[0].length; i++) {
@@ -1132,8 +1129,13 @@ function getStudylog() {
 
 }
 function setClicklCal() {
-	$('#studyCal li .exists').click(function(event) {
+	$('#studyCal li a').click(function(event) {
 		event.preventDefault();
+		if (!$(this).hasClass('exists')) {
+			return;
+		}
+		$('#studyCal li .current').removeClass('current');
+		$(this).addClass('current');
 		var id = $(this).attr('name');
 		var day = +$(this).html();
 
@@ -1850,6 +1852,434 @@ function setDeleteBtn() {
 		});
 
 	});
+}
+		<?php
+	}
+
+
+	/**
+	* プロフィールページ
+	*/
+	public function profile() {
+		?>
+/* --------------------------------------------------------------------------
+
+メイン
+
+-------------------------------------------------------------------------- */
+var year_;
+var month_;
+var ajaxGetStudylog = false;
+var elmStudyDetail;
+
+
+$(function () {
+	// 初期動作
+	var date = new Date();
+	year_ = date.getFullYear();
+	month_ = date.getMonth();
+	elmStudyDetail = $('#page_profile section.reflection > div');
+	studyDetailInitialize();
+	before();
+
+	// カレンダー動作設定
+	setCal();
+	setChangeCal();
+});
+
+
+
+/* --------------------------------------------------------------------------
+
+関数部
+
+-------------------------------------------------------------------------- */
+/**
+* カレンダー制御
+*/
+function setCal() {
+	// グローバル変数にアクセス
+	var year = year_;
+	var month = month_;
+
+	// 曜日
+	var dayArr = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+	var elmCal = $('#studyCal');
+	var elmCalHeader = $('#page_profile .calHeader');
+	var date = new Date( year, month, 1 );
+
+	// カレンダー見出し挿入
+	elmCalHeader.html( year + '年 ' + (month+1) + '月' );
+
+	// 曜日挿入
+	elmCal.html('');
+	var tagStr = '';
+	for (var i=0; i<dayArr.length; i++) {
+		tagStr += '\n<li class="' + dayArr[i] + '">' + dayArr[i] + '</li>';
+	}
+	elmCal.append(tagStr);
+
+	// 日にち挿入
+	tagStr = '';
+	for (var i=0; i<date.getDay(); i++) {
+		tagStr += '\n<li>&nbsp;</li>';
+	}
+	for (var i=0; i<daysInMonth(); i++) {
+		tagStr += '\n<li class="' + dayArr[i%7] + '"><a class="' + (i+1) + '" href="#">' + (i+1) + '</a></li>';
+	}
+	elmCal.append(tagStr);
+
+	// グラフ描画
+	drawStudytimeGraph();
+	// カレンダーの月を表示
+	$('#GraphCalMonth').html((month_+1)+'月');
+
+	// 勉強記録取得情報
+	getStudylog();
+}
+function setChangeCal() {
+	$('#nextMonth').click(function(event) {
+		event.preventDefault();
+
+		// 勉強詳細エリア初期化
+		studyDetailInitialize();
+
+		if (month_ > 10) {
+			month_ = 0;
+			year_++;
+		} else {
+			month_++;
+		}
+
+		setCal();
+	});
+
+	$('#prevMonth').click(function(event) {
+		event.preventDefault();
+
+		// 勉強詳細エリア初期化
+		studyDetailInitialize();
+
+		if (month_ === 0) {
+			month_ = 11;
+			year_--;
+		} else {
+			month_--;
+		}
+
+		setCal();
+	});
+}
+function daysInMonth(){
+	return 32 - new Date( year_, month_, 32 ).getDate();
+}
+function getStudylog() {
+	if (ajaxGetStudylog) {
+		ajaxGetStudylog.abort();
+	}
+	ajaxGetStudylog = $.ajax({
+		url: '<?php echo rootUrl; ?>studylog/getStudylog/',
+		type: 'POST',
+		dataType: 'JSON',
+		data: {
+			year: year_,
+			month: month_,
+			dayCnt: daysInMonth(),
+			userid: $('#hd_userid').val()
+		}
+	})
+	.done(function(data) {
+		console.log("success");
+		console.log(data);
+
+		// カレンダーに勉強記録の有無を表示
+		for (var i=0; i<data.length; i++) {
+			var dateArr = data[i]['Studylog']['date'].split('-');
+			$('.' + +dateArr[2]).addClass('exists').attr('name', data[i]['Studylog']['id']);
+		}
+		// 日付に対してクリック時の処理を設定
+		setClicklCal();
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		console.log("complete");
+	});
+
+}
+function setClicklCal() {
+	$('#studyCal li a').click(function(event) {
+		event.preventDefault();
+		if (!$(this).hasClass('exists')) {
+			return;
+		}
+		$('#studyCal li .current').removeClass('current');
+		$(this).addClass('current');
+
+		var id = $(this).attr('name');
+		var day = +$(this).html();
+
+		/* 勉強詳細取得 */
+		$.ajax({
+			url: '<?php echo rootUrl; ?>studylog/getStudylogDetail/',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				id: id
+			}
+		})
+		.done(function(data) {
+			console.log("success");
+			console.log(data);
+
+			// 勉強記録詳細表示の準備
+			if (data.length === 0) return;
+			var date = data[0]['Studylog']['date'];
+			var dateArr = date.split('-');
+			var month = dateArr[1];
+			var day = dateArr[2];
+			var reflection = data[0]['Studylog']['text'];
+			var targetName = [];
+			var studytime = [];
+
+			for (var i=0; i<data.length; i++) {
+				targetName[targetName.length] = data[i]['Target']['name'];
+				studytime[studytime.length] = data[i]['Studytime']['time'];
+			}
+
+			// 表示処理
+			$('#detailHeader').html('<span><em id="month">' + +month + '</em>月<em id="date">' + +day + '</em>日 の勉強記録</span>');
+			$('#reflectionText').html(reflection);
+			var str = '';
+			for (var i=0; i<targetName.length; i++) {
+				str += '<li><section>\n';
+				str += '<p>' + (+studytime[i]/60).toFixed(1) + 'h</p>\n';
+				str += '<h4>' + targetName[i] + '</h4>\n';
+				str += '</section></li>\n';
+			}
+			$('#reflectionStudyTime').html(str);
+			elmStudyDetail.show();
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+
+
+		/* Todoリスト取得 */
+		$.ajax({
+			url: '<?php echo rootUrl; ?>todo/getTodo/',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				year: year_,
+				month: +month_ + 1,
+				day: day
+			}
+		})
+		.done(function(data) {
+			console.log("success");
+			console.log(data);
+
+			// データ未取得の時は抜ける
+			if (data.length === 0) {
+				// 何もない表示
+				$('#miniTodo').html('');
+				return;
+			}
+
+			// Todoリスト表示
+			var tagStr = '';
+			for (var i=0; i<data.length; i++) {
+				if ( i===0 ) {
+					tagStr += '<dt>' + data[i]['Target']['name'] + '</dt>\
+								<dd>\
+									<ul>\n';
+				}
+				var classTag = '';
+				if (data[i]['Todo']['done'] === '1') classTag = ' class="checked" ';
+
+				tagStr += '<li' + classTag + '>' + data[i]['Todo']['text'] + '</li>\n';
+
+				if ( i === data.length-1 ) {
+					tagStr += '</ul>\
+							</dd>\n';
+					break;
+				} else if (data[i]['Target']['id'] !== data[i+1]['Target']['id']) {
+					tagStr += '</ul>\
+							</dd>\
+							<dt>' + data[i+1]['Target']['name'] + '</dt>\
+							<dd>\
+								<ul>\n';
+				}
+			}
+
+			// タグの挿入
+			$('#miniTodo').html(tagStr);
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+	});
+}
+function drawStudytimeGraph() {
+	// グラフのx軸の設定
+	var dateData = [];
+	dateData[dateData.length] = '日';
+	for (var i=0; i<daysInMonth(); i++) {
+		dateData[dateData.length] = i+1;
+	}
+	// グラフのy軸 - 勉強時間の設定
+	var studytimeData = [];
+	studytimeData[studytimeData.length] = (+month_+1)+'月';
+	var url = '<?php echo rootUrl; ?>studylog/getMonthStudytime/';
+	var data = {
+				year: year_,
+				month: +month_ + 1,
+				userid: $('#hd_userid').val()
+			};
+	var ownProfileFlg = true;
+	// 自分のプロフィールかどうかを判断
+	if (+$('#hd_userid').val() !== <?php echo $_SESSION['Auth']['id']; ?>) {
+		url = '<?php echo rootUrl; ?>studylog/getDoubleStudylog/';
+		data.friend_id = $('#hd_userid').val();
+		ownProfileFlg = false;
+	}
+	$.ajax({
+			url: url,
+			type: 'POST',
+			dataType: 'JSON',
+			data: data
+	})
+	.done(function(data) {
+		console.log("success");
+		console.log(data);
+
+		if (ownProfileFlg) {
+			// 自分のプロフィール表示
+			for (var i=0; i<daysInMonth(); i++) {
+				studytimeData[studytimeData.length] = 0;
+			}
+
+			var dateStr = year_ + '-' + sprintf('%02d', +month_+1) + '-';
+			for (var i=0; i<data.length; i++) {
+				var day = +data[i]['Studylog']['date'].replace(dateStr, '');
+				studytimeData[day] = sprintf('%.1f', data[i][0]['studytime']/60);
+			}
+
+
+			var chartdata51 = {
+
+				"config": {
+					// "title": "Option textColor",
+					// "subTitle": "各文字列の色(データ値valColor以外)をまとめてcolor文字列で指定できます。",
+					"type": "line",
+					"bg": "#fff",
+					// "xColor": "rgba(150,150,150,0.6)",
+					"colorSet": ["rgba(0,150,250,0.9)"],
+					"textColor": "#333",
+					"useMarker": "arc",
+					"useShadow": "no",
+					"roundDigit": 1,
+					"axisXLen": 12,
+					"minY": 0,
+					"maxY": 12,
+					"paddingLeft": 35,
+					"paddingRight": 50,
+					"unit:str": "h",
+					"paddingTop": 10
+				},
+
+				// "data": [
+				// 	["日",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+				// 	["今月",10,5.5,8,9,10,11,6,4,5,6,7,4,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+				// ]
+				"data": [dateData, studytimeData]
+			};
+			ccchart.init("hoge", chartdata51);
+		} else {
+			// 自分以外のプロフィール表示
+
+			for (var i=0; i<daysInMonth(); i++) {
+				dateData[dateData.length] = i+1;
+			}
+			// 勉強時間の設定
+			var myStudytimeData = [];
+			var friendStudytimeData = [];
+			myStudytimeData[myStudytimeData.length] = '自分';
+			friendStudytimeData[friendStudytimeData.length] = '相手';
+
+			for (var i=0; i<daysInMonth(); i++) {
+				myStudytimeData[myStudytimeData.length] = 0;
+				friendStudytimeData[friendStudytimeData.length] = 0
+			}
+
+			var dateStr = year_ + '-' + sprintf('%02d', +month_+1) + '-';
+			for (var i=0; i<data[0].length; i++) {
+				var day = +data[0][i]['Studylog']['date'].replace(dateStr, '');
+				myStudytimeData[day] = sprintf('%.1f', data[0][i][0]['studytime']/60);
+			}
+			for (var i=0; i<data[1].length; i++) {
+				var day = +data[1][i]['Studylog']['date'].replace(dateStr, '');
+				friendStudytimeData[day] = sprintf('%.1f', data[1][i][0]['studytime']/60);
+			}
+
+
+			var chartdata51 = {
+
+				"config": {
+					// "title": "Option textColor",
+					// "subTitle": "各文字列の色(データ値valColor以外)をまとめてcolor文字列で指定できます。",
+					"type": "line",
+					"bg": "#fff",
+					// "xColor": "rgba(150,150,150,0.6)",
+					"colorSet": ["rgba(190,190,190,0.9)", "rgba(0,150,250,0.9)"],
+					"textColor": "#333",
+					"useMarker": "arc",
+					"useShadow": "no",
+					"roundDigit": 1,
+					"axisXLen": 12,
+					"minY": 0,
+					"maxY": 12,
+					"paddingLeft": 35,
+					"paddingRight": 50,
+					"unit:str": "h",
+					"paddingTop": 10
+				},
+
+				// "data": [
+				// 	["日",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+				// 	["今月",10,5.5,8,9,10,11,6,4,5,6,7,4,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+				// ]
+				"data": [dateData, myStudytimeData, friendStudytimeData]
+			};
+			ccchart.init("hoge", chartdata51);
+		}
+
+
+
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		console.log("complete");
+	});
+}
+/**
+* 勉強詳細エリア初期化
+*/
+function studyDetailInitialize() {
+	var initializingStr = '<span>以下に勉強記録が表示されます</span>';
+	elmStudyDetail.hide();
+	$('#detailHeader').html(initializingStr);
+
 }
 		<?php
 	}

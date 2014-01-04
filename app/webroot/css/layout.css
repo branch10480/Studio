@@ -298,9 +298,13 @@ footer p {
 	width: 534px;
 }
 #timeline h2 {
-	font-size: 12px;
+	font-size: 13px;
 	color: #d925e9;
 	margin-bottom: 10px;
+}
+#timeline h2 a {
+	font-size: 13px;
+	color: #d925e9;
 }
 #timeline h3 {
 	font-size: 11px;
@@ -800,8 +804,8 @@ footer p {
 	background: #ce4a34;
 	color: #fff;
 }
-#studylog .cal li.current a {
-	background: #999;
+#studylog .cal li a.current {
+	background: #ce4a34;
 	color: #fff;
 	cursor: default;
 }
@@ -1125,8 +1129,8 @@ footer p {
 	background: #ce4a34;
 	color: #fff;
 }
-#page_profile .cal li.current a {
-	background: #999;
+#page_profile .cal li a.current {
+	background: #ce4a34;
 	color: #fff;
 	cursor: default;
 }

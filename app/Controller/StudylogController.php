@@ -30,13 +30,16 @@ class StudylogController extends AppController {
 	* 勉強ログデータ取得 - Ajax
 	*/
 	public function getStudylog() {
+		$result;
 		// if ($this->RequestHandler->isAjax()) {
 			// 正常処理
 			// if ($this->request->is('post')) {
 				// $mailaddress = $_POST['id'];
 				$this->layout = 'ajax';
 				$loginId = $this->Session->read('Auth.id');
-				$result;
+				if (isset($_POST['userid'])) {
+					$loginId = $_POST['userid'];
+				}
 
 				$year = $_POST['year'];
 				$month = $_POST['month'];
@@ -176,7 +179,10 @@ class StudylogController extends AppController {
 			// if ($this->request->is('post')) {
 				// $mailaddress = $_POST['id'];
 				$this->layout = 'ajax';
-				$loginId = $this->Session->read('Auth.id');
+				$userid = $this->Session->read('Auth.id');
+				if (isset($_POST['userid'])) {
+					$userid = $_POST['userid'];
+				}
 
 				$query = "SELECT ";
 				$query .= " Studylog.date, SUM(Studytime.time) AS studytime ";
@@ -187,7 +193,7 @@ class StudylogController extends AppController {
 				$query .= "ON ";
 				$query .= " Studylog.id = Studytime.studylog_id ";
 				$query .= "WHERE ";
-				$query .= " Studylog.account_id = " . $loginId . " ";
+				$query .= " Studylog.account_id = " . $userid . " ";
 				$query .= "AND ";
 				$query .= " DATE_FORMAT(Studylog.date,'%Y%m') = '" . $_POST['year'] . sprintf('%02d', $_POST['month']) . "' ";
 				$query .= "GROUP BY ";

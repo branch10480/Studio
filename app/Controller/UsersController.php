@@ -216,6 +216,8 @@ class UsersController extends AppController {
 		// 表示するユーザの決定
 		if ($userId_ === '00') {
 			$userId = $this->Session->read('Auth.id');
+		} else {
+			$userId = $userId_;
 		}
 
 		// userIdを元にユーザプロフィール取得
@@ -225,6 +227,9 @@ class UsersController extends AppController {
 						)
 					);
 		$result = $this->Account->find('first', $params);
+		// if ($result) {
+		// 	exit();
+		// }
 		$this->set(array(
 			'title_for_layout' => ' | プロフィール',
 			'user_id' => $result['Account']['id'],

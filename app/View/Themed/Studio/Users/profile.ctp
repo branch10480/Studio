@@ -3,6 +3,8 @@
 	// $this->Html->script('drawPieChart', array('inline' => false));
 	// $this->Html->css('pieChart', null, array('inline' => false));
 ?>
+<script type="text/javascript" src="<?php echo rootUrl . 'js/profile/'; ?>"></script>
+<input type="hidden" id="hd_userid" value="<?php echo $user_id; ?>">
 <div id="page_profile" class="clearfix">
 	<div class="left">
 		<dl id="profileHeader" class="clearfix">
@@ -90,13 +92,13 @@
 		</section>
 		<!-- 勉強記録詳細 -->
 		<section class="reflection">
-			<h2><span><em>11</em>月<em>19</em>日 の勉強記録</span></h2>
+			<h2 id="detailHeader"><span>以下に勉強記録が表示されます</span></h2>
 			<hr />
 			<div class="clearfix">
 				<section>
 					<h3>感想・反省</h3>
 					<p>今日は途中で居眠りしてしまった。<br />しかし起床後は効率よく学習を進めることができたので、これからは休憩を適度に入れて行こうと思う。</p>
-					<ul class="clearfix">
+					<ul id="reflectionStudyTime" class="clearfix">
 						<li>
 							<section>
 								<p>10.0h</p>
@@ -119,7 +121,7 @@
 				</section>
 				<section class="todo">
 					<h3>ToDoリスト</h3>
-					<dl>
+					<dl id="miniTodo">
 						<dt>応用情報技術者試験</dt>
 						<dd>
 							<ul>
