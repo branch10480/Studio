@@ -9,23 +9,21 @@
 /**
 * main
 */
+var submitFlg = false;
 
 
 $(function () {
 	// 初期動作
 	before();
 
+	// submitボタン処理
+	$('.submit').click(function(event) {
+		event.preventDefault();
+		$('#newaccountMailForm').submit();
+	});;
+
 	// ログイン認証処理設定
 	setCheckRepetition();
-
-	$('#newaccountMail').blur(function(event) {
-		// メールアドレス有効性チェック
-		if (!$('#newaccountMail').val().match(/^(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:"(?:\\[^\r\n]|[^\\"])*")))\@(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:\[(?:\\\S|[\x21-\x5a\x5e-\x7e])*\])))$/)) {
-			$('#newaccountMsg').html('※ メールアドレスが正しくありません。').css({'color': 'red', 'font-size': '12px'});
-		} else {
-			checkRepetition();
-		}
-	});
 });
 
 
@@ -35,45 +33,33 @@ $(function () {
 */
 
 function setCheckRepetition () {
-	$('#newaccountForm').submit(function(event) {
-		var elmFlg = $('#newaccountForm .hdFlg');
-		if (elmFlg.val() === '0') {
+	$('#newaccountMailForm').submit(function(event) {
+		if (!submitFlg) {
 			event.preventDefault();
+
+			// メールアドレス有効性チェック
+			if (!$('#newaccountMail').val().match(/^(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:"(?:\\[^\r\n]|[^\\"])*")))\@(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:\[(?:\\\S|[\x21-\x5a\x5e-\x7e])*\])))$/)) {
+				$('#newaccountMsg').html('※ メールアドレスが正しくありません。').css({'color': 'red', 'font-size': '12px'});
+				return;
+			} else {
+				checkRepetition();
+			}
 
 			// エラーメッセージの初期化
 			$('#newaccountMsg').html('');
-
-			// バリデーションの実行
-			var valResult = newaccountValidate();
-			if (!valResult.result) {
-				var msgStr = '';
-				// エラーメッセージ結合処理
-				msgStr = valResult.msg;
-				// エラーメッセージ出力
-				$('#newaccountMsg').html(msgStr).css({
-					'color': 'red',
-					'font-size': '12px'
-				});
-			} else {
-				// Ajaxログイン認証 f()
-				alert('ok');
-				elmFlg.val('1');
-				$(this).submit();
-			}
 		}
 	});
 }
 /* バリデーション実行 */
 function newaccountValidate () {
 	var email = $('#newaccountMail').val();
-	var pass = $('#newaccountPass').val();
 	var flg = true;
 	var msg = [];
 	var strMsg;
 	var resultObj;
 
 	// 未入力チェック
-	if (email === '' || pass === '') {
+	if (email === '') {
 		flg = false;
 		msg[msg.length] = '※ 未入力項目があります。';
 	} else {
@@ -82,10 +68,6 @@ function newaccountValidate () {
 			flg = false;
 			msg[msg.length] = '※ メールアドレスが正しくありません。';
 		}
-		// パスワード有効性チェック
-		if (!pass.match(/^.{6,30}$/)) {
-			flg = false;
-			msg[msg.length] = '※ 6文字以上30文字以下で入力してください。';		}
 	}
 
 	// 警告文結合処理
@@ -118,6 +100,22 @@ function checkRepetition () {
 			$('#newaccountMsg').html(data['msg']).css({'color': 'red', 'font-size': '12px'});
 		} else {
 			$('#newaccountMsg').html(data['msg']).css({'color': 'green', 'font-size': '12px'});
+			// バリデーションの実行
+			var valResult = newaccountValidate();
+			if (!valResult.result) {
+				var msgStr = '';
+				// エラーメッセージ結合処理
+				msgStr = valResult.msg;
+				// エラーメッセージ出力
+				$('#newaccountMsg').html(msgStr).css({
+					'color': 'red',
+					'font-size': '12px'
+				});
+			} else {
+				// Ajaxログイン認証 f()
+				submitFlg = true;
+				$('#newaccountMailForm').submit();
+			}
 		}
 	})
 	.error(function (data, textStatus) {
@@ -128,16 +126,25 @@ function checkRepetition () {
 
 
 </script>
-<section id="newaccount">
-	<h1>新規会員登録</h1>
-	<?php echo $this->Form->create('Account', array('id' => 'newaccountForm')); ?>
-	<dl>
-		<dt>メールアドレス</dt>
-		<dd><?php echo $this->Form->text('Account.mailaddress', array('id' => 'newaccountMail')); ?></dd>
-		<dt>パスワード</dt>
-		<dd><?php echo $this->Form->password('Account.pass', array('id' => 'newaccountPass')); ?></dd>
-		<dd><p id="newaccountMsg"></p></dd>
-	</dl>
-	<input type="hidden" value="0" class="hdFlg" />
-	<?php echo $this->Form->end('送信'); ?>
+<section id="newaccount" class="newacc1">
+	<div id="smallHeader">
+		<h1>新規会員登録</h1>
+	</div>
+	<?php echo $this->Html->image('img_newaccbar1.png', array('width' => '1000', 'alt' => '1. メールアドレス入力')); ?>
+	<section>
+		<hr />
+		<h2><span>メールアドレスをご入力ください</span></h2>
+		<div id="contents">
+			<?php echo $this->Form->create('Account', array('id' => 'newaccountMailForm')); ?>
+			<h3>メールアドレスを入力</h3>
+			<?php echo $this->Form->text('Account.mailaddress', array('id' => 'newaccountMail', 'type' => 'email')); ?>
+			<p id="newaccountMsg"></p>
+			<ul>
+				<li>※ 携帯メールアドレスでも登録できます。</li>
+				<li>※ ドメイン指定受信を設定されている方は「info.studio@gmail.com」<br />　を受信できるように指定ください。</li>
+			</ul>
+			<div class="btnArea"><a class="submit" href="#"><span>次へ</span></a></div>
+			<?php echo $this->Form->end(); ?>
+		</div>
+	</section>
 </section>

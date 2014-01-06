@@ -20,6 +20,7 @@ class UsersController extends AppController {
 			'login_comp',
 			'new_account',
 			'send_mail',
+			'createProfile',
 			'account_regist',
 			'mailaddress_exists',
 			'logout'
@@ -123,17 +124,18 @@ class UsersController extends AppController {
 		$this->layout = 'top';
 		if ($this->referer() == controllerURL . 'new_account/' && $this->request->is('post')) {
 			/* 仮登録処理 */
+			$pass = openssl_random_pseudo_bytes(6);
 			$data = array(
 					'Account' => array(
 							'mailaddress' => $this->request->data['Account']['mailaddress'],
-							'pass' => base64_encode($this->request->data['Account']['pass'])
+							'pass' => $pass
 						)
 				);
 			$this->Account->save($data);
 
 			/* ページ遷移 */
 			$mail = base64_encode($this->request->data['Account']['mailaddress']);
-			$this->redirect('send_mail/' . $mail);
+			$this->redirect('send_mail/' . $mail . '/' . $pass);
 		}
 	}
 
@@ -142,13 +144,24 @@ class UsersController extends AppController {
 	/**
 	* メール送信処理
 	*/
-	public function send_mail($mail) {
-
+	public function send_mail($mail, $pass) {
+		$this->layout = 'top';
 		/* 表示変数格納 */
 		$this->set(array(
-				'mail' => '',
-				'url' => controllerURL . 'account_regist/' . $mail
+			'title_for_layout' => ' | メール送信完了',
+			'mail' => '',
+			'url' => controllerURL . 'createProfile/' . $mail . '/' . $pass
 			));
+	}
+
+
+
+	/**
+	* プロフィール作成
+	*/
+	public function createProfile() {
+		$this->layout = 'top';
+		$this->set('title_for_layout', ' | プロフィール作成');
 	}
 
 
@@ -157,6 +170,7 @@ class UsersController extends AppController {
 	* アカウント本登録
 	*/
 	public function account_regist ($mail) {
+		$this->layout = 'top';
 		$mailaddress = base64_decode($mail);
 		$this->set('mailaddress', $mailaddress);
 

@@ -161,7 +161,7 @@ function ajaxAuth () {
 				<h3>ログイン</h3>
 				<dl>
 					<dt>メールアドレス</dt>
-					<dd><input type="text" id="modalEmail" name="loginEmail" /></dd>
+					<dd><input type="email" id="modalEmail" name="loginEmail" /></dd>
 					<dt>パスワード</dt>
 					<dd><input type="password" id="modalPass" /></dd>
 					<dd><p id="modalMsg"></p></dd>
