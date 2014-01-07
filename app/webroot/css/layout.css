@@ -915,7 +915,7 @@ footer p {
 /* Newtarget
 ----------------------------------------------------------------------*/
 #tSearchArea {
-	widows: 534px;
+	width: 534px;
 }
 #targetForm {
 	position: relative;
@@ -1326,7 +1326,7 @@ footer p {
 #newaccountMailForm ul {
 	margin: 10px 0;
 }
-#newaccount form .btnArea a {
+#newaccount .btnArea a {
 	display: inline-block;
 	background-color: #666;
 	background-image: url('../img/ico_triangle01.png');
@@ -1338,15 +1338,32 @@ footer p {
 	border-radius: 2px;
 	transition: background 0.05s linear;
 }
-#newaccount form .btnArea a:hover {
+#newaccount .btnArea a:hover {
 	background-color: #85bb13;
 	text-decoration: none;
 }
 @media screen and (-webkit-min-device-pixel-ratio:2),
 (min-resolution: 2dppx) {
-	#newaccount form .btnArea a {
+	#newaccount .btnArea a {
 		background-image: url('../img/ico_triangle01-retina.png');
 	}
+}
+.newacc0 #contents > * {
+	float: left;
+	width: 500px;
+}
+.newacc0 .left li {
+	font-size: 19px;
+}
+.newacc0 .left li em {
+	font-size: 30px;
+	font-style: normal;
+}
+.newacc0 .btnArea {
+	margin-top: 80px;
+}
+.newacc0 p {
+	margin: 20px 0 0;
 }
 .newacc2 p {
 	margin: 0 0 40px;
@@ -1412,4 +1429,44 @@ footer p {
 .newacc3 input[type=password],
 .newacc3 textarea {
 	width: 300px;
+}
+.newacc5 #contents > * {
+	float: left;
+}
+.newacc5 #contents > .left {
+	width: 388px;
+	border: solid 1px #ccc;
+	border-radius: 2px;
+	padding: 40px;
+}
+.newacc5 #contents > .right {
+	width: 450px;
+	margin-left: 80px;
+	text-align: left;
+}
+.newacc5 #contents > .left dt {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+}
+.newacc5 #contents > .left dd {
+	padding-left: 140px;
+	width: 228px;
+}
+.newacc5 #contents > .left dd li {
+	border-top: dashed 1px #ccc;
+	padding: 10px 0;
+}
+.newacc5 #contents > .left dd li:first-child {
+	border: 0
+}
+.newacc5 #contents > .right h3 {
+	margin: 40px 0 20px;
+	font-size: 20px;
+	color: #7bad56;
+	font-weight: normal;
+}
+.newacc5 #contents > .right p {
+	margin: 20px 0 40px;
 }

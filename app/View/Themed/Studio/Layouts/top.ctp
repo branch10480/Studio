@@ -92,7 +92,7 @@ if ($this->Session->check('Auth.User')) {
 
 	<div id="invitationNav">
 		<h2>さぁ、あなたも登録をして始めましょう！</h2>
-		<p><a href="<?php echo rootUrl . 'users/new_account/' ?>">新規会員登録はコチラ</a></p>
+		<p><a href="<?php echo rootUrl . 'users/checkRule/' ?>">新規会員登録はコチラ</a></p>
 	</div>
 
 

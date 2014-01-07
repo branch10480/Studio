@@ -11,5 +11,10 @@ $(function () {
 			100, function() {
 			/* stuff to do after animation is complete */
 		});
-	});;
+	});
+
+	$('.submit').click(function(event) {
+		event.preventDefault();
+		$('#newAccProfile').submit();
+	});
 });

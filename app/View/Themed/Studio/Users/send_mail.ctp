@@ -7,7 +7,7 @@
 	<div id="smallHeader">
 		<h1>新規会員登録</h1>
 	</div>
-	<?php echo $this->Html->image('img_newaccbar2.png', array('width' => '1000', 'alt' => '1. メールアドレス入力')); ?>
+	<?php echo $this->Html->image('img_newaccbar2.png', array('width' => '1000', 'alt' => '2. メール送信')); ?>
 	<section>
 		<hr />
 		<h2><span>メールの送信が完了しました</span></h2>
