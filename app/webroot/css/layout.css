@@ -1331,6 +1331,7 @@ footer p {
 	background-color: #666;
 	background-image: url('../img/ico_triangle01.png');
 	background-position: right 20px center;
+	background-size: 6px 10px;
 	background-repeat: no-repeat;
 	color: #fff;
 	padding: 0.75em 46px 0.75em 20px;
