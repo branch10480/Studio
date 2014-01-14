@@ -159,8 +159,17 @@ footer p {
 #invitationNav p a {
 	color: #f11f73;
 	font-size: 18px;
-	padding-right: 30px;
-	background: url("../img/vector01.png") center right no-repeat;
+	padding: 5px 30px 5px 0;
+	background-image: url("../img/ico_newaccount_arrow.png");
+	background-position: center right;
+	background-repeat: no-repeat;
+	background-size: 26px 26px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:2),
+(min-resolution: 2dppx) {
+	#invitationNav p a {
+		background-image: url("../img/ico_newaccount_arrow-retina.png");
+	}
 }
 #gnav li {
 	width: 127px;
