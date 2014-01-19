@@ -1788,7 +1788,7 @@ function setNewTargetSearch() {
 					</li>';
 			}
 			if (data.length === 0) tagStr = '\
-				<li name="not" class="default">資格が見つかりませんでした<br />お探しの資格がない場合<a href="#">コチラ</a>から申請ができます。</li>';
+				<li name="not" class="default">資格が見つかりませんでした<br />お探しの資格がない場合<a href="<?php echo rootUrl . "demand/"; ?>">コチラ</a>から申請ができます。</li>';
 			$('#searchResult').html('').append(tagStr).find('li').click(function(event) {
 				// 検索結果をクリックしたときの処理
 				if ($(this).attr('name') === 'not') return;

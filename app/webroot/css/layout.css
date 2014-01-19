@@ -488,7 +488,7 @@ footer p {
 	padding-left: 59px;
 }
 #friend_now h2 {
-	font-size: 12px;
+	font-size: 13px !important;
 	color: #d925e9;
 	font-size: 11px;
 	margin-bottom: 10px;
