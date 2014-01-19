@@ -78,7 +78,8 @@
 	width: 520px;
 }
 #modal h3 {
-	border-bottom: 1px solid #ccc;
+	border-bottom: 3px solid #ccc;
+	margin-bottom: 20px;
 }
 #white_modal h3 {
 	text-align: center;
@@ -122,7 +123,27 @@
 #loginForm input[type=password] {
 	width: 399px;
 }
-
+#modal .btnArea a {
+	display: inline-block;
+	background-color: #666;
+	background-image: url('../img/ico_triangle01.png');
+	background-position: right 20px center;
+	background-size: 6px 10px;
+	background-repeat: no-repeat;
+	color: #fff;
+	padding: 0.75em 46px 0.75em 20px;
+	line-height: 1;
+	border-radius: 2px;
+	transition: background 0.05s linear;
+	margin: 20px 0 0;
+}
+#modal .btnArea a:hover {
+	background-color: #85bb13;
+	text-decoration: none;
+}
+#modal .submitBtn {
+	visibility: hidden;
+}
 
 
 /**

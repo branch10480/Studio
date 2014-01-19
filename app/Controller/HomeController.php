@@ -19,6 +19,9 @@ class HomeController extends AppController {
 	}
 
 	public function index() {
+		// ログイン済みの場合の処理
+		if ($this->Session->check('Auth.id')) $this->redirect(homeUrl);
+
 		$this->layout = 'top';
 		$this->set('title_for_layout', '');
 	}

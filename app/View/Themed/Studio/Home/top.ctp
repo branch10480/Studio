@@ -60,6 +60,16 @@
 		</ul>
 	</div>
 	<div id="friend_now">
+		<aside>
+			<ul>
+				<!-- <li>
+					<dl class="clearfix">
+						<dt>応用情報技術者試験まで</dt>
+						<dd>あと<strong>６０</strong>日</dd>
+					</dl>
+				</li> -->
+			</ul>
+		</aside>
 		<ul>
 			<li>
 				<div class="container">

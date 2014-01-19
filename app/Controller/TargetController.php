@@ -138,6 +138,39 @@ class TargetController extends AppController {
 
 
 
+	public function getMyTargetCountdown() {
+		$result = '';
+		if ($this->RequestHandler->isAjax()) {
+			// 正常処理
+			if ($this->request->is('post')) {
+				$this->layout = 'ajax';
+				$loginId = $this->Session->read('Auth.id');
+
+				// 副問い合わせ
+				$query = "SELECT ";
+				$query .= " name, to_days(Target.date) - to_days(now()) as days ";
+				$query .= "FROM ";
+				$query .= " mytargets AS MyTarget ";
+				$query .= "JOIN ";
+				$query .= " targets AS Target ";
+				$query .= " ON ";
+				$query .= " MyTarget.target_id = Target.id ";
+				$query .= "WHERE ";
+				$query .= " MyTarget.account_id = " . $loginId . " ";
+				$query .= "HAVING ";
+				$query .= " days >= 0 ";
+				$result = $this->Mytarget->query($query);
+			}
+		} else {
+			// 不正処理
+		}
+		$this->set(array(
+			'result' => $result
+			));
+	}
+
+
+
 	public function removeTarget() {
 		$result = '';
 		if ($this->RequestHandler->isAjax()) {

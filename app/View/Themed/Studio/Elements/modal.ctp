@@ -24,6 +24,10 @@ $(function () {
 			$(this).css('z-index', -1);
 		})
 	});
+	$('#btnLogin').click(function(event) {
+		event.preventDefault();
+		$('#loginForm').submit();
+	});;
 
 	// リサイズ時の中央寄せ
 	$(window).resize(function(event) {
@@ -166,7 +170,8 @@ function ajaxAuth () {
 					<dd><input type="password" id="modalPass" /></dd>
 					<dd><p id="modalMsg"></p></dd>
 				</dl>
-				<input type="submit" id="btnLogin" value="ログイン" />
+				<div class="btnArea"><a id="btnLogin" href="#">ログイン</a></div>
+				<input type="submit" class="submitBtn" value="ログイン" />
 				<input type="hidden" id="submitFlg" value="0" />
 			</form>
 		</div>

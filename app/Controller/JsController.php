@@ -39,6 +39,7 @@ $(function () {
 	getTimelineData();
 	setTimeout('startInsertPosts()', 1000);
 	getFriendStudydata();
+	setCountdownCal();
 });
 
 
@@ -432,6 +433,46 @@ function showFriendStudyData( friend_id_ ) {
 		elmFriendnow.append(tagStr);
 		graphAnimate( $('#friend' + friendId).find('.studyGraphBar'), sumStudytime*90/12, 1 );
 		graphTextAnimate( $('#friend' + friendId).find('.studytimeText'), sumStudytime*90/12, 1 );
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		console.log("complete");
+	});
+
+}
+
+
+
+/**
+* 試験まであと何日カレンダー
+*/
+function setCountdownCal() {
+	$.ajax({
+		url: '<?php echo rootUrl; ?>target/getMyTargetCountdown/',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+		}
+	})
+	.done(function(data) {
+		console.log("success");
+		console.log(data);
+
+		var tagStr = '';
+		for (var i=0; i<data.length; i++) {
+			tagStr += '\
+					<li>\
+						<dl class="clearfix">\
+							<dt>' + data[i]['Target']['name'] + 'まで</dt>\
+							<dd>あと<strong>' + data[i][0]['days'] + '</strong>日</dd>\
+						</dl>\
+					</li>\
+				';
+		}
+
+		$('#friend_now aside ul').html(tagStr);
 	})
 	.fail(function() {
 		console.log("error");
@@ -1746,8 +1787,12 @@ function setNewTargetSearch() {
 						<input type="hidden" value="' + data[i]['Target']['id'] + '" />\
 					</li>';
 			}
+			if (data.length === 0) tagStr = '\
+				<li name="not" class="default">資格が見つかりませんでした<br />お探しの資格がない場合<a href="#">コチラ</a>から申請ができます。</li>';
 			$('#searchResult').html('').append(tagStr).find('li').click(function(event) {
 				// 検索結果をクリックしたときの処理
+				if ($(this).attr('name') === 'not') return;
+
 				var targetId = $(this).find('input').val();
 				var targetName = $(this).find('p').html();
 				registerNewTarget(targetId);

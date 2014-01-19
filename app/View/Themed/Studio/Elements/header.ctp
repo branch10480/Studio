@@ -34,7 +34,7 @@ if ($this->Session->check('Auth')) {
 					<?php echo $loginOrOut; ?>
 				</li>
 				<li>
-					<a href="<?php echo rootUrl . 'users/profile/'; ?>">
+					<a class="profile" href="<?php echo rootUrl . 'users/profile/'; ?>">
 						<dl class="clearfix">
 							<dt><img src="<?php echo rootUrl; ?>img/profile/<?php echo $id . $img_ext; ?>" alt="<?php echo $userName; ?>" width="30" /></dt>
 							<dd><?php echo $userName; ?></dd>

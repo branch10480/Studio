@@ -3,12 +3,21 @@
 	$this->Html->script('createProfile', array('inline' => false));
 	$this->Html->css('pieChart', null, array('inline' => false));
 ?>
+<script>
+	$(function(){
+		// プロフィール画像ボタン
+		$('#iconArea').click(function(event) {
+			$('#profileThumb').click();
+		});
+	});
+</script>
 <section id="newaccount" class="newacc3">
 	<div id="smallHeader">
 		<h1>新規会員登録</h1>
 	</div>
 	<?php echo $this->Html->image('img_newaccbar3.png', array('width' => '1000', 'alt' => '3. プロフィール作成')); ?>
 	<section>
+		<?php echo $this->Form->create('Account', array('id' => 'newAccProfile')); ?>
 		<hr />
 		<h2><span>プロフィールを作成します</span></h2>
 		<div id="contents" class="clearfix">
@@ -17,9 +26,9 @@
 					<?php echo $this->Html->image('ico_man.gif', array('width' => '100')); ?>
 					<p id="animP">画像を選択</p>
 				</div>
+				<input type="file" id="profileThumb" />
 			</div>
 			<div class="right">
-				<?php echo $this->Form->create('Account', array('id' => 'newAccProfile')); ?>
 				<dl>
 					<dt>名前</dt>
 					<dd><?php echo $this->Form->text('Account.name', array('id' => 'newaccountMail', 'class' => 'txtBox', 'type' => 'text', 'value' => $name)); ?></dd>
@@ -39,8 +48,8 @@
 					<dd><?php echo $this->Form->textarea('Account.introduction', array('cols' => 40, 'rows' => 10, 'value' => $introduction)); ?></dd>
 					<dd class="btnArea"><a class="submit" href="#">次へ</a></dd>
 				</dl>
-				<?php echo $this->Form->end(); ?>
 			</div>
 		</div>
+		<?php echo $this->Form->end(); ?>
 	</section>
 </section>
