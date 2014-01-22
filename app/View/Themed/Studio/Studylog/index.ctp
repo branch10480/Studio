@@ -65,37 +65,29 @@
 		</section>
 	</div>
 	<div class="dispArea">
+		<section class="default">
+			<h2>勉強記録</h2>
+			<p>色がついたカレンダーをクリックするとコチラに詳細が表示されます。</p>
+		</section>
 		<section class="reflection">
-			<h2 id="reflectionHeader">12月24日の感想反省</h2>
-			<p id="reflectionText">今日は途中で居眠りしてしまった。<br />しかし起床後は効率よく学習を進めることができたので、これからは休憩を適度に入れて行こうと思う。</p>
+			<h2 id="reflectionHeader">&nbsp;</h2>
+			<p id="reflectionText">&nbsp; </p>
 			<ul id="reflectionStudyTime" class="clearfix">
 				<li>
-					<p>10.0h</p>
-					<h3>応用情報処理技術者</h3>
-				</li>
-				<li>
-					<p>3.0h</p>
-					<h3>センター試験</h3>
+					<p>&nbsp; </p>
+					<h3>&nbsp; </h3>
 				</li>
 			</ul>
 		</section>
 		<section class="todo">
 			<h2>ToDoリスト</h2>
 			<dl id="miniTodo">
-				<dt>応用情報処理技術者</dt>
+				<dt>&nbsp;</dt>
 				<dd>
 					<ul>
-						<li class="checked">応用情報技術者の参考書を20ページ終わらせる</li>
-						<li>応用情報技術者の参考書を20ページ終わらせる</li>
-						<li>応用情報技術者の参考書を20ページ終わらせる</li>
-					</ul>
-				</dd>
-				<dt>センター試験</dt>
-				<dd>
-					<ul>
-						<li>センター試験の参考書を20ページ終わらせる</li>
-						<li>センター試験の参考書を20ページ終わらせる</li>
-						<li>センター試験の参考書を20ページ終わらせる</li>
+						<li class="checked">&nbsp;</li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
 					</ul>
 				</dd>
 			</dl>

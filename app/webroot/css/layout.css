@@ -193,11 +193,19 @@ footer p {
 	background-position: center right;
 	background-repeat: no-repeat;
 	background-size: 26px 26px;
+	transition: color 0.1s linear, background-image 0.1s linear;
+}
+#invitationNav p a:hover {
+	color: #666;
+	background-image: url("../img/ico_newaccount_arrow_hover.png");
 }
 @media screen and (-webkit-min-device-pixel-ratio:2),
 (min-resolution: 2dppx) {
 	#invitationNav p a {
 		background-image: url("../img/ico_newaccount_arrow-retina.png");
+	}
+	#invitationNav p a:hover {
+		background-image: url("../img/ico_newaccount_arrow_hover-retina.png");
 	}
 }
 #gnav li {
@@ -355,6 +363,9 @@ footer p {
 	font-size: 13px;
 	color: #d925e9;
 }
+#timeline h2 a:hover {
+	text-decoration: underline;
+}
 #timeline h3 {
 	font-size: 11px;
 	color: #d925e9;
@@ -421,6 +432,7 @@ footer p {
 }
 .communicateBtnArea li:hover {
 	cursor: pointer;
+	background: #ddd;
 }
 .communicateBtnArea span {
 	display: block;
@@ -488,10 +500,14 @@ footer p {
 	padding-left: 59px;
 }
 #friend_now h2 {
-	font-size: 13px !important;
-	color: #d925e9;
-	font-size: 11px;
 	margin-bottom: 10px;
+}
+#friend_now h2 a {
+	font-size: 13px;
+	color: #d925e9;
+}
+#friend_now h2 a:hover {
+	text-decoration: underline;
 }
 #friend_now h3 {
 	font-size: 10px;
@@ -857,15 +873,15 @@ footer p {
 	padding: 8px 0;
 }
 #studylog .cal ul {
-	width: 532px;
+	width: 492px;
 	border-bottom: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
-	padding: 20px 0;
+	padding: 20px 20px;
 }
 #studylog .cal li {
 	float: left;
-	width: 65px;
+	width: 60px;
 	height: 40px;
 	margin: 5px;
 	text-align: right;
@@ -882,7 +898,8 @@ footer p {
 	padding: 3px 3px 0 0;
 }
 #studylog .cal li a.exists {
-	background-color: #71EDF5;
+	background-color: #6B9CDB;
+	color: #fff;
 }
 #studylog .cal li a:hover {
 	background: #ce4a34;
@@ -916,7 +933,13 @@ footer p {
 }
 #studylog .dispArea section {
 	margin-top: 40px;
+	opacity: 0;
 }
+#studylog .dispArea #miniTodo p {
+	font-size: 12px;
+	margin: 20px 0 0;
+}
+#studylog .dispArea section.reflection,
 #studylog .dispArea section:first-child {
 	margin-top: 0;
 }
@@ -928,7 +951,11 @@ footer p {
 	line-height: 1;
 	font-size: 11px;
 }
-#studylog .reflection p {
+#studylog .dispArea .default {
+	opacity: 1;
+}
+#studylog .reflection p,
+#studylog .default p {
 	font-size: 12px;
 	margin-top: 20px;
 }
@@ -997,7 +1024,7 @@ footer p {
 	width: 534px;
 	background-color: #8FC31F;
 	height: 50px;
-	border-radius: 2px 2px 0 0;
+	border-radius: 2px;
 }
 #txtTsearch {
 	letter-spacing: normal;
@@ -1015,6 +1042,38 @@ footer p {
 #myTargetArea {
 	width: 259px;
 	margin-left: 40px;
+}
+#myTargetArea h1,
+#myTargetArea h2 {
+	font-size: 18px;
+	margin-bottom: 20px;
+	border-bottom: 2px solid #85bb13;
+}
+#myTargetArea .btnArea a {
+	display: inline-block;
+	background-color: #666;
+	background-image: url('../img/ico_triangle01.png');
+	background-position: right 20px center;
+	background-size: 6px 10px;
+	background-repeat: no-repeat;
+	color: #fff;
+	padding: 0.75em 46px 0.75em 20px;
+	line-height: 1;
+	border-radius: 2px;
+	transition: background 0.05s linear;
+}
+#myTargetArea .btnArea a:hover {
+	background-color: #85bb13;
+	text-decoration: none;
+}
+@media screen and (-webkit-min-device-pixel-ratio:2),
+(min-resolution: 2dppx) {
+	#myTargetArea .btnArea a {
+		background-image: url('../img/ico_triangle01-retina.png');
+	}
+}
+#myTargetArea ul {
+	margin-bottom: 40px;
 }
 #tSearchArea li {
 	position: relative;
@@ -1045,22 +1104,24 @@ footer p {
 }
 #myTargetArea li {
 	position: relative;
-	border: solid 1px #ccc;
-	margin-bottom: 20px;
+	border: solid 1px #ddd;
+	margin-bottom: 10px;
 	border-radius: 2px;
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
 }
 #myTargetArea li p {
 	padding: 15px;
 }
 #myTargetArea li a {
 	position: absolute;
-	top: 16px;
+	top: 17px;
 	right: 10px;
 	background: #eee;
-	border-radius: 20px;
+	border-radius: 13px;
 	line-height: 1;
-	padding: 2px 3px;
-	color: #ccc
+	padding: 2px 5px;
+	color: #ccc;
+	display: table-cell;
 }
 #myTargetArea li a:hover {
 	color: #aaa;
@@ -1089,6 +1150,9 @@ footer p {
 #searchResult .default a:hover {
 	color: #8FC31F;
 	text-decoration: underline;
+}
+#myTargetArea aside p {
+	margin-bottom: 20px;
 }
 
 
@@ -1231,7 +1295,8 @@ footer p {
 	padding: 3px 3px 0 0;
 }
 #page_profile .cal li a.exists {
-	background-color: #71EDF5;
+	background-color: #6B9CDB;
+	color: #fff;
 }
 #page_profile .cal li a:hover {
 	background: #ce4a34;

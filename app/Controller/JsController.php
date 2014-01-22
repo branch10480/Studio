@@ -394,7 +394,7 @@ function showFriendStudyData( friend_id_ ) {
 		var tagStr = '\
 			<li class="fadeFast" id="friend' + friendId + '">\
 				<div class="container">\
-					<h2>' + friendName + '</h2>\
+					<h2><a href="<?php echo rootUrl; ?>users/profile/' + friend_id + '">' + friendName + '</a></h2>\
 					<dl>\
 						<dt><img src="<?php echo rootUrl; ?>img/profile/' + friend_id + img_ext + '" alt="' + friendName + '" width="48" /></dt>\
 						<dd>\
@@ -1049,7 +1049,8 @@ $(function () {
 	var date = new Date();
 	year_ = date.getFullYear();
 	month_ = date.getMonth();
-	before();
+
+	$('#studylog .dispArea section').not('.default').hide();
 
 	// カレンダー動作設定
 	setCal();
@@ -1172,6 +1173,10 @@ function getStudylog() {
 function setClicklCal() {
 	$('#studyCal li a').click(function(event) {
 		event.preventDefault();
+
+		$('#studylog .dispArea section').not('.default').css('opacity', 0).show().fadeTo(500, 1);
+		$('#studylog .dispArea .default').hide();
+
 		if (!$(this).hasClass('exists')) {
 			return;
 		}
@@ -1247,7 +1252,7 @@ function setClicklCal() {
 			// データ未取得の時は抜ける
 			if (data.length === 0) {
 				// 何もない表示
-				$('#miniTodo').html('');
+				$('#miniTodo').html('<p>この日のTodoリストはありません。</p>');
 				return;
 			}
 
@@ -1837,7 +1842,7 @@ function dispMyTargets() {
 					<input type="hidden" value="' + data[i]['Target']['id'] + '" />\
 				</li>';
 		}
-		$('#myTargetArea ul').html('').append(tagStr);
+		$('#myTargetArea ul').hide().html('').append(tagStr).fadeTo(600, 1);;
 		setDeleteBtn();
 	})
 	.fail(function() {

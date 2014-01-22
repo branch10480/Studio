@@ -27,23 +27,13 @@
 	<div id="myTargetArea">
 		<h1>あなたの目指す資格</h1>
 		<ul>
-			<li>
-				<p>応用情報技術者試験</p>
-				<a href="#">&times;</a>
-			</li>
-			<li>
-				<p>愛知県立一宮高等学校</p>
-				<a href="#">&times;</a>
-			</li>
-			<li>
-				<p>基本情報技術者試験</p>
-				<a href="#">&times;</a>
-			</li>
 		</ul>
 		<aside>
 			<h2>資格が見つかりませんか？</h2>
 			<p>お探しの資格が見つからない場合は我々にお知らせください。<br />迅速に対応致します。</p>
-			<a href="<?php echo rootUrl . 'demand/'; ?>">資格の追加申請はコチラ</a>
+			<div class="btnArea">
+				<a href="<?php echo rootUrl . 'demand/'; ?>">資格の追加申請はコチラ</a>
+			</div>
 		</aside>
 	</div>
 </article>
