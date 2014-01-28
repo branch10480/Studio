@@ -472,7 +472,7 @@ function setCountdownCal() {
 				';
 		}
 
-		$('#friend_now aside ul').html(tagStr);
+		$('#friend_now aside ul').hide().html(tagStr).fadeTo(600, 1);
 	})
 	.fail(function() {
 		console.log("error");
