@@ -74,6 +74,10 @@ header .left a {
 	vertical-align: middle;
 	text-align: center;
 }
+header .left a > img {
+	vertical-align: middle;
+	line-height: 1;
+}
 header .left a:hover {
 	opacity: 0.7;
 }
@@ -96,9 +100,6 @@ header li {
 	border-right: 1px #ccc solid;
 	overflow: hidden;
 }
-header li:first-child {
-	border-right: 0;
-}
 #topNav ul {
 	width: 100%;
 }
@@ -118,11 +119,11 @@ header li:first-child {
 	height: 40px;
 	vertical-align: middle;
 	color: #666;
-	font-size: 14px;
+	font-size: 13px;
 }
 #topNav li a:hover {
 	color: #f11f73;
-	background: #ddd;
+	background: #fff;
 }
 header dt {
 	float: left;
@@ -150,7 +151,11 @@ header .protile {
 #loginBtn:hover,
 header dt img,
 header .profile dl:hover {
-	background: #ccc;
+	background: #fff;
+	color: #f11f73;
+}
+header .profile dl {
+	border-left: 1px solid #ccc;
 }
 
 
@@ -209,16 +214,21 @@ footer p {
 	}
 }
 #gnav li {
-	width: 127px;
-	height: 127px;
+	width: 125px;
+	height: 125px;
 	text-align: center;
-	background: linear-gradient(#f2f2f2, #e0e0e0);
-	margin-top: 20px;
-	border-radius: 10px;
+	/*background: linear-gradient(#f2f2f2, #e0e0e0);*/
+	background: #f2f2f2;
+	border: 1px solid #ddd;
+	margin-top: 10px;
+	border-radius: 5px;
 	overflow: hidden;
 }
 #gnav li:first-child {
 	margin-top: 0;
+}
+#gnav li:hover {
+	border: 1px solid #85bb13;
 }
 #gnav li a {
 	display: block;
@@ -240,7 +250,7 @@ footer p {
 	transition: background-color 0.05s linear;
 }
 #gnav a:hover {
-	background-color: #cdcdcd;
+	background-color: #fff;
 }
 #gnav01 a {
 	background-image: url('../img/side_gnav01.png');
@@ -354,14 +364,20 @@ footer p {
 #timeline {
 	width: 534px;
 }
+#timeline .loader {
+	display: block;
+	width: 32px;
+	height: 32px;
+	margin: 20px auto;
+}
 #timeline h2 {
 	font-size: 13px;
 	color: #d925e9;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 #timeline h2 a {
 	font-size: 13px;
-	color: #d925e9;
+	color: #2544E9;
 }
 #timeline h2 a:hover {
 	text-decoration: underline;
@@ -392,8 +408,8 @@ footer p {
 	border-radius: 4px;
 }
 #timeline dd {
-	width: 440px;
-	padding-left: 95px;
+	width: 451px;
+	padding-left: 84px;
 	position: relative;
 }
 #timeline .qualifications {
@@ -410,16 +426,17 @@ footer p {
 	padding: 0.1em 0.7em;
 	color: #fff;
 	font-size: 11px;
-	background: #bfbfbf;
+	background: #888;
 	margin-bottom: 0.3em;
 }
 #timeline dd > img {
-	margin: 5px 0;
+	margin: 10px 0;
 	max-width: 400px;
 	max-height: 400px;
 }
 .communicateBtnArea {
 	letter-spacing: 5px;
+	margin-top: 5px;
 }
 .communicateBtnArea li {
 	letter-spacing: normal;
@@ -427,12 +444,14 @@ footer p {
 	font-size: 10px;
 	padding: 0.2em 1em 0.2em 0;
 	border-radius: 2px;
-	background: linear-gradient(#f2f2f2, #e0e0e0);
+	border: 1px solid #ccc;
+	/*background: linear-gradient(#f2f2f2, #e0e0e0);*/
 	margin: 5px 0;
 }
 .communicateBtnArea li:hover {
 	cursor: pointer;
-	background: #ddd;
+	background: #efefef;
+	border: 1px solid #85bb13;
 }
 .communicateBtnArea span {
 	display: block;
@@ -681,6 +700,7 @@ footer p {
 	float: left;
 	background: #eee;
 	cursor: pointer;
+	font-size: 12px;
 }
 #fsearchArea > .tab > li:first-child {
 	border-left: none;
@@ -709,7 +729,7 @@ footer p {
 	border-radius: 15px;
 	border: none;
 	position: absolute;
-	font-size: 14px;
+	font-size: 13px;
 	right: 10px;
 	top: 10px;
 	color: #333;
@@ -1128,7 +1148,7 @@ footer p {
 	background: #ddd;
 }
 #searchResult li.default {
-	height: 300px;
+	height: 466px;
 	width: 534px;
 	display: table-cell;
 	vertical-align: middle;
@@ -1194,7 +1214,7 @@ footer p {
 	padding-top: 0.3em;
 }
 #page_profile #profileHeader dd a {
-	color: #d925e9;
+	color: #2544E9;
 }
 #page_profile #profileHeader dd a:hover {
 	text-decoration: underline;

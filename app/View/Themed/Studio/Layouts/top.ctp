@@ -69,7 +69,7 @@ if ($this->Session->check('Auth.User')) {
 <div id="container">
 	<header>
 		<div class="clearfix">
-			<div class="left logo"><a href="<?php echo 'http://' . env('HTTP_HOST') . DS . 'Studio' . DS; ?>">Studio</a></div>
+			<div class="left logo"><a href="<?php echo 'http://' . env('HTTP_HOST') . DS . 'Studio' . DS; ?>"><?php echo $this->Html->image('logo_02.png', array('width' => '81', 'alt' => 'Studio')); ?></a></div>
 			<nav class="center"></nav>
 			<div class="right">
 				<ul class="clearfix">

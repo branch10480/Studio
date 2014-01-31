@@ -35,6 +35,9 @@ var maxPostId_ = 0;
 
 
 $(function () {
+
+	// AjaxObj
+
 	// ライムライン取得
 	getTimelineData();
 	setTimeout('startInsertPosts()', 1000);
@@ -57,6 +60,12 @@ function getTimelineData () {
 		data: {
 			id: '<?php echo $this->Session->read('Auth.mailaddress'); ?>',
 			max_postid: +maxPostId
+		},
+		beforeSend: function(){
+			$('#timeline').append('<img src="<?php echo rootUrl; ?>/img/loader.gif" alt="" width="32" height="32" class="loader" />');
+		},
+		complete: function(){
+			$('#timeline .loader').replaceWith('');
 		}
 	})
 	.success(function (data) {
@@ -80,7 +89,7 @@ function writePosts(data) {
 		var timelineRecord = '\
 			<li id="post' + data[i]['Post']['id'] + '">\
 				<dl>\
-					<dt><img src=\"<?php echo rootUrl . "img/profile/" ?>' + data[i]['Account']['id'] + '.jpg" alt="' + data[i]['Account']['name'] + '" width="75" height="75" /></dt>\
+					<dt><img src=\"<?php echo rootUrl . "img/profile/" ?>' + data[i]['Account']['id'] + '.jpg" alt="' + data[i]['Account']['name'] + '" width="64" height="64" /></dt>\
 					<dd>\
 						<h2><a href="<?php echo rootUrl ?>users/profile/' + data[i]['Account']['id'] + '">' + data[i]['Account']['name'] + '</a></h2>\
 						<p>' + data[i]['Post']['text'].replace('\n', '<br />') + '</p>\

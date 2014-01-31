@@ -20,7 +20,7 @@ if ($this->Session->check('Auth')) {
 ?>
 <header>
 	<div class="clearfix">
-		<div class="left logo"><a href="<?php echo homeUrl; ?>">Studio</a></div>
+		<div class="left logo"><a href="<?php echo homeUrl; ?>"><?php echo $this->Html->image('logo_02.png', array('width' => '81', 'alt' => 'Studio')); ?></a></div>
 		<nav id="topNav" class="center">
 			<ul class="clearfix">
 				<li><a href="<?php echo homeUrl; ?>">タイムライン</a></li>
