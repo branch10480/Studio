@@ -1,6 +1,6 @@
 <?php
 	// このページ限定のCSS,JS
-	// $this->Html->script(array('timeline'), array('inline' => false));
+	$this->Html->script(array('scroll'), array('inline' => false));
 	// $this->Html->css(array('pieChart', 'glide'), null, array('inline' => false));
 ?>
 
@@ -70,6 +70,7 @@
 				</li> -->
 			</ul>
 		</aside>
+		<h1>あなたがフォローしている人達</h1>
 		<ul>
 			<li>
 				<div class="container">
@@ -131,3 +132,4 @@
 		</ul>
 	</div>
 </article>
+<a id="scrollToTop" href="#"><?php echo $this->Html->image('ico_totop.png', array('alt' => 'トップへ', 'width' => '63', 'height' => '63')); ?><br />トップへ</a>

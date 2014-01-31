@@ -402,42 +402,36 @@ function showFriendStudyData( friend_id_ ) {
 		// 友達の勉強時間を表示
 		var tagStr = '\
 			<li class="fadeFast" id="friend' + friendId + '">\
-				<div class="container">\
-					<h2><a href="<?php echo rootUrl; ?>users/profile/' + friend_id + '">' + friendName + '</a></h2>\
-					<dl>\
-						<dt><img src="<?php echo rootUrl; ?>img/profile/' + friend_id + img_ext + '" alt="' + friendName + '" width="48" /></dt>\
-						<dd>\
-							<div class="graphArea">\
-								<h3>昨日の勉強時間</h3>\
-									<svg width="160" height="50" viewBox="0 0 160 50">\
-										<!-- code -->\
-										<g class="graphBG" stroke="#bcb699">\
-											<line x1="32" y1="3" x2="32" y2="30" />\
-											<!-- <line x1="140" y1="0" x2="140" y2="100" />\
-											<line x1="190" y1="0" x2="190" y2="100" />\
-											<line x1="240" y1="0" x2="240" y2="100" />\
-											<line x1="290" y1="0" x2="290" y2="100" />\
-											<line x1="340" y1="0" x2="340" y2="100" /> -->\
-										</g>\
-										<g class="graphLabel" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="11px">\
-											<text x="22" y="21" font-weight="bold">昨日</text>\
-										</g>\
-										<g class="graphBar" fill="#c9c3a5" stroke="#bcb699">\
-											<rect class="studyGraphBar" x="32" y="7" fill="#41c3e9" stroke="#2abfe8" width="95" height="20" class="todayBar" rx="2"></rect>\
-										</g>\
-										<g text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="11px">\
-											<text class="studytimeText" x="37" y="21" font-weight="normal">' + sprintf('%.1f', sumStudytime) + 'h</text>\
-										</g>\
-									</svg>\
-							</div>\
-						</dd>\
-					</dl>\
-					<ul class="reflection clearfix">\
-						<li>最新の投稿</li>\
-						<li class="current">昨日の反省</li>\
-					</ul>\
-				</div>\
+				<h2><a href="<?php echo rootUrl; ?>users/profile/' + friend_id + '">' + friendName + '</a></h2>\
+				<dl>\
+					<dt><img src="<?php echo rootUrl; ?>img/profile/' + friend_id + img_ext + '" alt="' + friendName + '" width="56" /></dt>\
+					<dd>\
+						<div class="graphArea">\
+							<h3>昨日の勉強時間</h3>\
+								<svg width="160" height="30" viewBox="0 0 160 30">\
+									<g class="graphBG" stroke="#bcb699">\
+										<line x1="32" y1="3" x2="32" y2="30" />\
+										<!-- <line x1="140" y1="0" x2="140" y2="100" />\
+										<line x1="190" y1="0" x2="190" y2="100" />\
+										<line x1="240" y1="0" x2="240" y2="100" />\
+										<line x1="290" y1="0" x2="290" y2="100" />\
+										<line x1="340" y1="0" x2="340" y2="100" /> -->\
+									</g>\
+									<g class="graphLabel" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="11px">\
+										<text x="22" y="21" font-weight="bold">昨日</text>\
+									</g>\
+									<g class="graphBar" fill="#c9c3a5" stroke="#bcb699">\
+										<rect class="studyGraphBar" x="32" y="7" fill="#41c3e9" stroke="#2abfe8" width="95" height="20" class="todayBar" rx="2"></rect>\
+									</g>\
+									<g text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="11px">\
+										<text class="studytimeText" x="37" y="21" font-weight="normal">' + sprintf('%.1f', sumStudytime) + 'h</text>\
+									</g>\
+								</svg>\
+						</div>\
+					</dd>\
+				</dl>\
 				<p>' + reflection + '</p>\
+				<div><a href="#" class="unfollow">フォローを解除</a></div>\
 			</li>';
 		elmFriendnow.append(tagStr);
 		graphAnimate( $('#friend' + friendId).find('.studyGraphBar'), sumStudytime*90/12, 1 );
