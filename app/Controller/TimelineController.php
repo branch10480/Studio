@@ -142,7 +142,7 @@ class TimelineController extends AppController {
 					'conditions' => array('Comment.post_id' => $_POST['post_id']), //検索条件の配列
 					'recursive' => 1, //int
 					// 'fields' => array('Model.field1', 'DISTINCT Model.field2'), //フィールド名の配列
-					'order' => array('Comment.post_datetime DESC'), //並び順を文字列または配列で指定
+					'order' => array('Comment.post_datetime ASC'), //並び順を文字列または配列で指定
 					// 'group' => array('Model.field'), //GROUP BYのフィールド
 					// 'limit' => $this->read_limit, //int
 					'page' => 1, //int
@@ -386,5 +386,32 @@ class TimelineController extends AppController {
 		$this->set(array(
 			'result' => $result
 			));
+	}
+
+
+
+	public function saveComment() {
+		$this->layout = 'ajax';
+		$this->autoRender = false;
+
+		if ($this->RequestHandler->isAjax()) {
+			// 正常処理
+			if ($this->request->is('post')) {
+				$loginId = $this->Session->read('Auth.id');
+				$postId = $_POST['post_id'];
+				$text = $_POST['text'];
+
+				$data = array(
+					'Comment' => array(
+						'account_id' => $loginId,
+						'post_id' => $postId,
+						'text' => $text
+						)
+					);
+				$this->Comment->saveAll($data);
+			}
+		} else {
+		// 不正処理
+		}
 	}
 }

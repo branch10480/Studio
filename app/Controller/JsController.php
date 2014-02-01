@@ -139,6 +139,11 @@ function writePosts(data) {
 
 		postidArr[postidArr.length] = +data[i]['Post']['id'];
 	}
+
+
+	// コメントボタン設定
+	setComment();
+
 	console.log(postidArr);
 
 	// 取得したpost_id の最大値を取得してグローバル変数に格納
@@ -321,6 +326,53 @@ function showComments(data) {
 		';
 		$('#post' + data[0][i]['Comment']['post_id'] + ' .commentArea ul').append(commentStr);
 	}
+}
+/**
+* コメント投稿処理
+*/
+function setComment() {
+	$('.btnComment').unbind().click(function(event) {
+		event.preventDefault();
+		var tagStr = '<div id="commentTextArea"><textarea></textarea><div class="btnArea"><a id="saveComment" href="#">投稿</a><a class="btnCancel" href="#">キャンセル</a></div></div>';
+		$(this).parent().parent().append(tagStr);
+		$('#commentTextArea textarea').focus();
+
+		$(this).parent().parent().find('.btnCancel').click(function(event) {
+			event.preventDefault();
+			$('#commentTextArea').replaceWith('');
+		});
+
+		$('#saveComment').click(function(event) {
+			var postId = $(this).parents('li').attr('id').replace('post', '');
+			var text = $('#commentTextArea textarea').val();
+			if (postId+'' === '') return;
+			saveComment( postId, text );
+			$('#commentTextArea').replaceWith('');
+		});
+	});
+}
+/**
+* コメント登録処理
+*/
+function saveComment( postId_, text_ ) {
+
+	$.ajax({
+		url: '<?php echo rootUrl; ?>timeline/saveComment/',
+		type: 'POST',
+		data: {
+			post_id: postId_,
+			text: text_
+		}
+	})
+	.done(function() {
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		console.log("complete");
+	});
+
 }
 
 

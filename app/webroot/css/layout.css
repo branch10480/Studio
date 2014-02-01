@@ -368,7 +368,7 @@ footer p {
 ----------------------------------------------------------------------*/
 #scrollToTop {
 	transition: opacity 0.1s linear;
-	opacity: 0.75;
+	opacity: 0.7;
 	position: fixed;
 	display: block;
 	width: 63px;
@@ -379,7 +379,7 @@ footer p {
 	z-index: 100;
 }
 #scrollToTop:hover {
-	opacity: 1;
+	opacity: 0.8 !important;
 }
 #scrollToTop img {
 	margin-bottom: 5px;
@@ -410,7 +410,7 @@ footer p {
 }
 #timeline h3 {
 	font-size: 11px;
-	color: #d925e9;
+	color: #2544E9;
 	margin-bottom: 0;
 }
 #timeline > ul {
@@ -505,6 +505,14 @@ footer p {
 	.btnSupport span {
 		background-image: url('../img/ico_ale-retina.png');
 	}
+}
+#commentTextArea {
+	margin: 20px 0 0;
+}
+#commentTextArea textarea {
+	width: 400px;
+	height: 80px;
+	color: #666;
 }
 .commentArea > ul {
 	margin: 20px 0 0;
