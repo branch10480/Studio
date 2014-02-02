@@ -81,6 +81,60 @@ class TimelineController extends AppController {
 
 
 	/**
+	* スクロールした時に更に記事を読み込む - Ajax
+	*/
+	public function getMoreTimelineData() {
+		$resultArr;
+		// if ($this->RequestHandler->isAjax()) {
+			// 正常処理
+			// if ($this->request->is('post')) {
+				// $mailaddress = $_POST['id'];
+				$this->layout = 'ajax';
+				$loginId = $this->Session->read('Auth.id');
+				$bottom_postid = $_POST['bottom_postid'];
+
+
+				// 友人のid 取得
+				$params = array(
+					'conditions' => array('Friend.my_id' => $loginId),
+					'fields' => array('Friend.account_id')
+					);
+				$friendId = $this->Friend->find('all', $params);
+				$friendIdArr = array();
+				for ($i=0; $i<count($friendId); $i++) {
+					$friendIdArr[] = $friendId[$i]['Friend']['account_id'];
+				}
+				// 自分のid も加える
+				$friendIdArr[] = $this->Session->read('Auth.id');
+
+
+				$params = array(
+					'conditions' => array(
+						'Post.account_id' => $friendIdArr,
+						'Post.id <' => $bottom_postid
+						), //検索条件の配列
+					'recursive' => 1, //int
+					// 'fields' => array('Model.field1', 'DISTINCT Model.field2'), //フィールド名の配列
+					'order' => array('Post.post_datetime DESC'), //並び順を文字列または配列で指定
+					// 'group' => array('Model.field'), //GROUP BYのフィールド
+					'limit' => $this->read_limit, //int
+					// 'page' => 1, //int
+					// 'offset' => n, //int
+					// 'callbacks' => true //falseの他に'before'、'after'を指定できます
+					);
+				$resultArr = $this->Post->find('all', $params);
+			// }
+		// } else {
+		// 	// 不正処理
+		// }
+		$this->set(array(
+			'resultArr' => $resultArr
+			));
+	}
+
+
+
+	/**
 	* 資格情報取得
 	*/
 	public function getTargetData() {

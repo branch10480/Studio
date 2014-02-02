@@ -43,7 +43,9 @@ $(function () {
 	setTimeout('startInsertPosts()', 1000);
 	getFriendStudydata();
 	setCountdownCal();
+	setComment();
 	insertComment();
+	setScrollRead();
 });
 
 
@@ -73,7 +75,7 @@ function getTimelineData () {
 		writePosts(data);
 	})
 	.error(function (data, textStatus) {
-		console.log(textStatus);
+		// console.log(textStatus);
 	});
 }
 /* タイムライン表示 */
@@ -121,7 +123,7 @@ function writePosts(data) {
 			}
 		})
 		.done(function(recvData) {
-			console.log("success");
+			// console.log("success");
 			// 資格挿入処理
 			var elmQualification = $('#post' + recvData[0] + ' .qualifications');
 			elmQualification.html('');
@@ -133,18 +135,14 @@ function writePosts(data) {
 			console.log("error");
 		})
 		.always(function() {
-			console.log("complete");
+			// console.log("complete");
 		});
 
 
 		postidArr[postidArr.length] = +data[i]['Post']['id'];
 	}
 
-
-	// コメントボタン設定
-	setComment();
-
-	console.log(postidArr);
+	// console.log(postidArr);
 
 	// 取得したpost_id の最大値を取得してグローバル変数に格納
 	var max;
@@ -178,7 +176,7 @@ function readComment(postidArr) {
 		}
 	})
 	.done(function(data) {
-		console.log(data);
+		// console.log(data);
 
 		// コメント表示処理
 		showComments(data);
@@ -187,7 +185,7 @@ function readComment(postidArr) {
 		console.log("error");
 	})
 	.always(function() {
-		console.log("complete");
+		// console.log("complete");
 	});
 }
 /* 投稿挿入開始処理 */
@@ -247,29 +245,29 @@ function insertPosts(data) {
 		for (var i=0; i<data.length; i++) {
 
 			// タイムラインの書き込み処理
-			var timelineRecord = '\
-				<li id="post' + data[i]['Post']['id'] + '" class="fadein" id="post' + data[i]['Post']['id'] + '">\
-					<dl>\
-						<dt><img src=\"<?php echo rootUrl . "img/profile/" ?>' + data[i]['Account']['id'] + '.jpg" alt="' + data[i]['Account']['name'] + '" width="75" height="75" /></dt>\
-						<dd>\
-							<h2>' + data[i]['Account']['name'] + '</h2>\
-							<p>' + data[i]['Post']['text'].replace('\n', '<br />') + '</p>\
-							';
-			if (data[i]['Post']['img_ext'] !== null) {
-				timelineRecord += '<img src="<?php echo rootUrl . "img/images/"; ?>' + data[i]['Post']['id'] + data[i]['Post']['img_ext'] + '" alt="" />';
-			}
-			timelineRecord += '\
-							<ul class="communicateBtnArea">\
-								<li class="btnComment"><span>コメントする</span></li>\
-								<li class="btnSupport"><span>ファイト！</span></li>\
-							</ul>\
-							<ul class="qualifications"></ul>\
-						</dd>\
-					</dl>\
-				</li>\
-			';
+		var timelineRecord = '\
+			<li class="fadein" id="post' + data[i]['Post']['id'] + '">\
+				<dl>\
+					<dt><img src=\"<?php echo rootUrl . "img/profile/" ?>' + data[i]['Account']['id'] + '.jpg" alt="' + data[i]['Account']['name'] + '" width="64" height="64" /></dt>\
+					<dd>\
+						<h2><a href="<?php echo rootUrl ?>users/profile/' + data[i]['Account']['id'] + '">' + data[i]['Account']['name'] + '</a></h2>\
+						<p>' + data[i]['Post']['text'].replace('\n', '<br />') + '</p>\
+						';
+		if (data[i]['Post']['img_ext'] !== null) {
+			timelineRecord += '<img src="<?php echo rootUrl . "img/images/"; ?>' + data[i]['Post']['id'] + data[i]['Post']['img_ext'] + '" alt="" />';
+		}
+		timelineRecord += '\
+						<ul class="communicateBtnArea">\
+							<li class="btnComment"><span>コメントする</span></li>\
+							<li class="btnSupport"><span>ファイト！</span></li>\
+						</ul>\
+						<ul class="qualifications"></ul>\
+					</dd>\
+				</dl>\
+			</li>\
+		';
 
-			$('#timeline > ul').prepend(timelineRecord);
+		$('#timeline > ul').prepend(timelineRecord);
 
 			// 資格情報取得
 			$.ajax({
@@ -350,7 +348,7 @@ function insertComment() {
 			}
 		})
 		.done(function(data) {
-			console.log(data);
+			// console.log(data);
 
 			if (data[0].length === 0) return;
 
@@ -383,7 +381,7 @@ function insertComment() {
 			console.log("error");
 		})
 		.always(function() {
-			console.log("complete");
+			// console.log("complete");
 		});
 	});
 
@@ -404,7 +402,7 @@ function setComment() {
 			$('#commentTextArea').replaceWith('');
 		});
 
-		$('#saveComment').click(function(event) {
+		$('#saveComment').unbind().click(function(event) {
 			event.preventDefault();
 			var postId = $(this).parents('li').attr('id').replace('post', '');
 			var text = $('#commentTextArea textarea').val();
@@ -413,6 +411,7 @@ function setComment() {
 			$('#commentTextArea').replaceWith('');
 		});
 	});
+	setTimeout('setComment()', 1000);
 }
 /**
 * コメント登録処理
@@ -433,11 +432,100 @@ function saveComment( postId_, text_ ) {
 		console.log("error");
 	})
 	.always(function() {
-		console.log("complete");
+		// console.log("complete");
 	});
 
 }
 
+
+
+/**
+* スクロール読み込み
+*/
+function setScrollRead() {
+	var scrTop = 0;
+	var footerOffset = 0;
+	var winHeight = $(window).height();
+	var footer = $('footer');
+	var allowFlg = true;
+
+	$(window).scroll(function(event) {
+		scrTop = $(window).scrollTop();
+		footerOffset = footer.offset().top;
+
+		if (footerOffset > scrTop+winHeight) return;
+
+
+
+
+
+		if (allowFlg) {
+			// 自身の処理が完了するまで読み込みを禁止
+			allowFlg = false;
+
+			// タイムライン上の一番下の記事IDを取得
+			postIdArr = [];
+			var elmPosts = $('#timeline > ul > li');
+			for (var i=0; i<elmPosts.length; i++) {
+				postIdArr[postIdArr.length] = +elmPosts[i].id.replace('post', '');
+			}
+			$.ajax({
+				url: '<?php echo rootUrl; ?>timeline/getMoreTimelineData/',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					bottom_postid: Math.min.apply(null, postIdArr)
+				},
+				beforeSend: function(){
+					$('#timeline').append('<img src="<?php echo rootUrl; ?>/img/loader.gif" alt="" width="32" height="32" class="loader" />');
+				},
+				complete: function(){
+					$('#timeline .loader').replaceWith('');
+				}
+			})
+			.done(function(data) {
+				console.log("ここだよ！");
+				console.log(data);
+
+				// 書き込み処理
+				for (var i=0; i<data.length; i++) {
+
+					// タイムラインの書き込み処理
+					var timelineRecord = '\
+						<li class="fadein" id="post' + data[i]['Post']['id'] + '">\
+							<dl>\
+								<dt><img src=\"<?php echo rootUrl . "img/profile/" ?>' + data[i]['Account']['id'] + '.jpg" alt="' + data[i]['Account']['name'] + '" width="64" height="64" /></dt>\
+								<dd>\
+									<h2><a href="<?php echo rootUrl ?>users/profile/' + data[i]['Account']['id'] + '">' + data[i]['Account']['name'] + '</a></h2>\
+									<p>' + data[i]['Post']['text'].replace('\n', '<br />') + '</p>\
+									';
+					if (data[i]['Post']['img_ext'] !== null) {
+						timelineRecord += '<img src="<?php echo rootUrl . "img/images/"; ?>' + data[i]['Post']['id'] + data[i]['Post']['img_ext'] + '" alt="" />';
+					}
+					timelineRecord += '\
+									<ul class="communicateBtnArea">\
+										<li class="btnComment"><span>コメントする</span></li>\
+										<li class="btnSupport"><span>ファイト！</span></li>\
+									</ul>\
+									<ul class="qualifications"></ul>\
+								</dd>\
+							</dl>\
+						</li>\
+					';
+
+					// 挿入後、次の読み込みを許可
+					if ($('#timeline > ul').append(timelineRecord)) allowFlg = true;
+				}
+			})
+			.fail(function() {
+				console.log("error");
+			})
+			.always(function() {
+				console.log("complete");
+			});
+		}
+	});
+}
 
 
 /**
@@ -458,8 +546,8 @@ function getFriendStudydata() {
 		}
 	})
 	.done(function(data) {
-		console.log("success");
-		console.log(data);
+		// console.log("success");
+		// console.log(data);
 
 		// 友達の勉強状況表示
 		var reflection = '';
@@ -471,7 +559,7 @@ function getFriendStudydata() {
 		console.log("error");
 	})
 	.always(function() {
-		console.log("complete");
+		// console.log("complete");
 	});
 }
 function showFriendStudyData( friend_id_ ) {
@@ -494,8 +582,8 @@ function showFriendStudyData( friend_id_ ) {
 		}
 	})
 	.done(function(data) {
-		console.log("success");
-		console.log(data);
+		// console.log("success");
+		// console.log(data);
 
 		var friendName = data[0][0]['Account']['name'];
 		var friend_id = data[0][0]['Account']['id'];
@@ -563,28 +651,30 @@ function showFriendStudyData( friend_id_ ) {
 			var user_id = $(this).parent().parent().attr('id').replace('friend', '');
 			var elmErace = $(this).parent().parent();
 			var res = '';
-			elmErace.fadeTo(50, 0.5, function () { res = confirm('フォローを解除してもよろしいですか？'); });
-			if (res === true) {
-				$.ajax({
-						url: '<?php echo rootUrl; ?>Fsearch/unfollow/',
-						type: 'POST',
-						data: {
-							unfollow_id: user_id
-						}
-					})
-					.done(function() {
-						elmErace.fadeTo(400, 0, function () { $(this).replaceWith(''); });
-					})
-					.fail(function() {
-						console.log("error");
-					})
-					.always(function() {
-						console.log("complete");
-					});
-			} else {
-				elmErace.fadeTo(50, 1);
-			}
+			elmErace.fadeTo(50, 0.5, function () {
+				res = confirm('フォローを解除してもよろしいですか？');
+				if (res === true) {
+					$.ajax({
+							url: '<?php echo rootUrl; ?>Fsearch/unfollow/',
+							type: 'POST',
+							data: {
+								unfollow_id: user_id
+							}
+						})
+						.done(function() {
+							elmErace.fadeTo(400, 0, function () { $(this).replaceWith(''); });
+						})
+						.fail(function() {
+							console.log("error");
+						})
+						.always(function() {
+							console.log("complete");
+						});
+				} else {
+					elmErace.fadeTo(50, 1);
+				}
 
+			});
 		});
 
 		graphAnimate( $('#friend' + friendId).find('.studyGraphBar'), sumStudytime*90/12, 1 );
