@@ -190,4 +190,31 @@ class FsearchController extends AppController {
 			'result' => $result
 			));
 	}
+
+
+
+	public function unfollow() {
+		if ($this->RequestHandler->isAjax()) {
+			// 正常処理
+			if ($this->request->is('post')) {
+				$this->layout = 'ajax';
+				$this->autoRender = false;
+				$loginId = $this->Session->read('Auth.id');
+				$unfollow_id = $_POST['unfollow_id'];
+
+				// 重複チェック
+				$params = array(
+					'conditions' => array(
+						'Friend.my_id' => $loginId,
+						'Friend.account_id' => $unfollow_id
+						),
+					'fields' => array('Friend.id')
+					);
+				$result = $this->Friend->find('first', $params);
+				$this->Friend->delete($result['Friend']['id']);
+			}
+		} else {
+			// 不正処理
+		}
+	}
 }

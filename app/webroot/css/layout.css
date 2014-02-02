@@ -636,6 +636,7 @@ footer p {
 	color: #fff;
 	border-radius: 3px;
 	opacity: 0;
+	z-index: -1;
 }
 #friend_now p:before {
 	content: "";

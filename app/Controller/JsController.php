@@ -43,7 +43,6 @@ $(function () {
 	setTimeout('startInsertPosts()', 1000);
 	getFriendStudydata();
 	setCountdownCal();
-
 	insertComment();
 });
 
@@ -52,7 +51,6 @@ $(function () {
 /**
 * タイムライン制御
 */
-
 function getTimelineData () {
 	var maxPostId = maxPostId_;
 	$.ajax({
@@ -551,6 +549,44 @@ function showFriendStudyData( friend_id_ ) {
 				<div><a href="#" class="unfollow">フォローを解除</a></div>\
 			</li>';
 		elmFriendnow.append(tagStr);
+
+		// 勉強の反省の hover エフェクト処理
+		$('#friend_now > ul > li > dl > dt').unbind().hover(function() {
+			$(this).parent().parent().find('p').css('z-index', '1').delay(10).fadeTo(100, 1);
+		}, function() {
+			$(this).parent().parent().find('p').fadeTo(100, 0, function(){ $(this).css('z-index', '-1'); });
+		});
+
+		// フォロー解除処理
+		$('.unfollow').unbind().click(function(event) {
+			event.preventDefault();
+			var user_id = $(this).parent().parent().attr('id').replace('friend', '');
+			var elmErace = $(this).parent().parent();
+			var res = '';
+			elmErace.fadeTo(50, 0.5, function () { res = confirm('フォローを解除してもよろしいですか？'); });
+			if (res === true) {
+				$.ajax({
+						url: '<?php echo rootUrl; ?>Fsearch/unfollow/',
+						type: 'POST',
+						data: {
+							unfollow_id: user_id
+						}
+					})
+					.done(function() {
+						elmErace.fadeTo(400, 0, function () { $(this).replaceWith(''); });
+					})
+					.fail(function() {
+						console.log("error");
+					})
+					.always(function() {
+						console.log("complete");
+					});
+			} else {
+				elmErace.fadeTo(50, 1);
+			}
+
+		});
+
 		graphAnimate( $('#friend' + friendId).find('.studyGraphBar'), sumStudytime*90/12, 1 );
 		graphTextAnimate( $('#friend' + friendId).find('.studytimeText'), sumStudytime*90/12, 1 );
 	})
