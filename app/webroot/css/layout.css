@@ -514,6 +514,23 @@ footer p {
 	height: 80px;
 	color: #666;
 }
+#commentTextArea a {
+	display: inline-block;
+	background-color: #666;
+	background-position: right 20px center;
+	background-repeat: no-repeat;
+	color: #fff;
+	padding: 0.75em 1em;
+	line-height: 1;
+	border-radius: 2px;
+	transition: background-color 0.05s linear;
+	margin-right: 10px;
+	font-size: 10px;
+}
+#commentTextArea a:hover {
+	background-color: #85bb13;
+	text-decoration: none;
+}
 .commentArea > ul {
 	margin: 20px 0 0;
 	border-top: 1px dotted #ccc;
@@ -1575,7 +1592,8 @@ footer p {
 	padding: 0.75em 46px 0.75em 20px;
 	line-height: 1;
 	border-radius: 2px;
-	transition: background 0.05s linear;
+	transition: background-image 0.05s linear,
+				background-color 0.05s linear;
 }
 #newaccount .btnArea a:hover {
 	background-color: #85bb13;

@@ -43,6 +43,8 @@ $(function () {
 	setTimeout('startInsertPosts()', 1000);
 	getFriendStudydata();
 	setCountdownCal();
+
+	insertComment();
 });
 
 
@@ -328,6 +330,68 @@ function showComments(data) {
 	}
 }
 /**
+* コメント挿入処理
+*/
+function insertComment() {
+
+	var postIdArr = [];
+	$('#timeline > ul > li').each(function () {
+		if (!$(this).attr('id').match(/^post[0-9]+$/)) return;
+
+		var postId = +$(this).attr('id').replace('post', '');
+		var thisElm = $(this);
+		var elmInsert = thisElm.find('.commentArea').find('ul');
+
+		// データ取得
+		$.ajax({
+			url: '<?php echo rootUrl ?>timeline/getComment/',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				post_id: postId
+			}
+		})
+		.done(function(data) {
+			console.log(data);
+
+			if (data[0].length === 0) return;
+
+			// コメント挿入処理
+			// alert(data[0][0]['Comment']['post_id']);
+			var diff = +data[0].length - +thisElm.find('.commentArea').find('ul').find('li').length;
+			if (diff === 0) return;
+
+			// コメント挿入処理
+			for (var i=0; i<diff; i++) {
+				var num = thisElm.find('.commentArea').find('ul').find('li').length + i;
+				var commentStr = '\
+										<li class="fadein">\
+											<dl>\
+												<dt><img src=\"<?php echo rootUrl . "img/profile/"; ?>' + data[0][num]['Account']['id'] + '.jpg\" alt=\"' + data[0][num]['Account']['name'] + '" width="48" height="48" /></dt>\
+												<dd>\
+													<h3>' + data[0][num]['Account']['name'] + '</h3>\
+													<p>' + data[0][num]['Comment']['text'] + '</p>\
+												</dd>\
+											</dl>\
+										</li>\
+				';
+				elmInsert.append(commentStr);
+			}
+
+
+
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+	});
+
+	setTimeout('insertComment()', 5000);
+}
+/**
 * コメント投稿処理
 */
 function setComment() {
@@ -343,6 +407,7 @@ function setComment() {
 		});
 
 		$('#saveComment').click(function(event) {
+			event.preventDefault();
 			var postId = $(this).parents('li').attr('id').replace('post', '');
 			var text = $('#commentTextArea textarea').val();
 			if (postId+'' === '') return;
