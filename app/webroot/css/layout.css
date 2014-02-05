@@ -405,6 +405,9 @@ footer p {
 	font-size: 13px;
 	color: #2544E9;
 }
+#timeline p {
+	padding-right: 200px;
+}
 #timeline h2 a:hover {
 	text-decoration: underline;
 }
@@ -918,6 +921,10 @@ footer p {
 	font-size: 12px;
 	line-height: 1;
 }
+#btnRegisterFriend:hover,
+.nowFollowing {
+	background: #666 !important;
+}
 #fsearch .graphArea {
 	opacity: 0;
 }
@@ -1063,6 +1070,7 @@ footer p {
 	background: linear-gradient(#F2F2F2, #E0E0E0) repeat scroll 0 0 rgba(0, 0, 0, 0);
 	border-radius: 1px;
 	text-align: center;
+	margin-bottom: 10px;
 }
 #studylog .reflection li h3 {
 	font-size: 11px;

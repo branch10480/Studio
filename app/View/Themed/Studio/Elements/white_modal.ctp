@@ -398,5 +398,8 @@ function authValidate () {
 		</div>
 		<!-- ToDoリスト -->
 		<!-- お疲れ様 -->
+		<div id="congraturationWindow" class="box">
+			<p>お疲れ様でした</p>
+		</div>
 	</div>
 </div>

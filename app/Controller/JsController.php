@@ -102,7 +102,7 @@ function writePosts(data) {
 		timelineRecord += '\
 						<ul class="communicateBtnArea">\
 							<li class="btnComment"><span>コメントする</span></li>\
-							<li class="btnSupport"><span>ファイト！</span></li>\
+							<!--<li class="btnSupport"><span>ファイト！</span></li>-->\
 						</ul>\
 						<ul class="qualifications"></ul>\
 					</dd>\
@@ -259,7 +259,7 @@ function insertPosts(data) {
 		timelineRecord += '\
 						<ul class="communicateBtnArea">\
 							<li class="btnComment"><span>コメントする</span></li>\
-							<li class="btnSupport"><span>ファイト！</span></li>\
+							<!--<li class="btnSupport"><span>ファイト！</span></li>-->\
 						</ul>\
 						<ul class="qualifications"></ul>\
 					</dd>\
@@ -391,7 +391,7 @@ function insertComment() {
 * コメント投稿処理
 */
 function setComment() {
-	$('.btnComment').unbind().click(function(event) {
+	$('body .btnComment').unbind().click(function(event) {
 		event.preventDefault();
 		var tagStr = '<div id="commentTextArea"><textarea></textarea><div class="btnArea"><a id="saveComment" href="#">投稿</a><a class="btnCancel" href="#">キャンセル</a></div></div>';
 		$(this).parent().parent().append(tagStr);
@@ -505,7 +505,7 @@ function setScrollRead() {
 					timelineRecord += '\
 									<ul class="communicateBtnArea">\
 										<li class="btnComment"><span>コメントする</span></li>\
-										<li class="btnSupport"><span>ファイト！</span></li>\
+										<!--<li class="btnSupport"><span>ファイト！</span></li>-->\
 									</ul>\
 									<ul class="qualifications"></ul>\
 								</dd>\
@@ -1081,7 +1081,7 @@ function insertMoreFriendData( data ) {
 
 		tmpStr = '';
 		tmpQl = '';
-		tmpStr = '<li>\
+		tmpStr = '<li id="searchedFriend' + data[i]['Account']['id'] + '">\
 				<dl class="clearfix">\
 					<dt><img src="<?php echo rootUrl; ?>img/profile/' + data[i]['Account']['id'] + data[i]['Account']['img_ext'] + '" alt="' + data[i]['Account']['name'] + '" width="50" /></dt>\
 					<dd>\
@@ -1109,7 +1109,7 @@ function insertMoreFriendData( data ) {
 		</ul>\
 					</dd>\
 				</dl>\
-				<p>勉強記録(' + data[i]['Account']['studylog_count'] + ')</p>\
+				<!--<p>勉強記録(' + data[i]['Account']['studylog_count'] + ')</p>-->\
 			</li>\n';
 
 		// 挿入処理
@@ -1169,7 +1169,7 @@ function showProfile( data, clickElm ) {
 			<ul class="clearfix">\
 				<li>\
 					<img src="<?php echo rootUrl; ?>img/profile/' + imgName + '" alt="' + name + '" width="90" />\
-					<a id="btnRegisterFriend" href="#" onclick="register(event, this);">仲間になる</a>\
+					<a id="btnRegisterFriend" href="#" onclick="register(event, this);">フォロー</a>\
 					<input class="registerId" type="hidden" value="' + id + '" />\
 				</li>\
 				<li>\
@@ -1189,6 +1189,7 @@ function showProfile( data, clickElm ) {
 							<p>' + intro + '</p>\
 						</dd>\
 					</dl>\
+					<input type="hidden" id="dispId" value="' + id + '" />\
 				</li>\
 			</ul>';
 
@@ -1205,6 +1206,7 @@ function showProfile( data, clickElm ) {
 function register( event, clickElm ) {
 	event.preventDefault();
 	var newFriendId = $(clickElm).parent().find('.registerId').val();
+	var elmTarget = event.target;
 
 	// 友達登録処理
 	$.ajax({
@@ -1216,9 +1218,13 @@ function register( event, clickElm ) {
 	.done(function(data) {
 		console.log("success");
 		console.log(data);
+		var friend_id = $('#dispId').val();
 		switch (data[0]) {
 			case 'success':
 				alert('登録が完了しました！');
+				$(elmTarget).addClass('nowFollowing').html('フォロー中');
+				var friend_id = $('#dispId').val();
+				$('#searchedFriend' + friend_id).fadeTo(500, 0, function(){ $(this).replaceWith(''); });
 				break;
 			case 'duplicate':
 				alert('既に友達登録されています。');
@@ -1916,8 +1922,15 @@ $(function () {
 				reflection: reflection
 			}
 		})
-		.done(function() {
-			console.log("success");
+		.done(function(data) {
+			if (data === 'already') {
+				alert('今日の記録はすでに登録されています。');
+			} else {
+				alert('お疲れ様でした');
+				location.href = '../studylog/';
+			}
+
+			//　お疲れ様でしたエフェクト
 		})
 		.fail(function() {
 			console.log("error");
