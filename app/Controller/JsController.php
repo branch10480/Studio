@@ -31,6 +31,7 @@ class JsController extends AppController {
 * タイムライン処理
 */
 var maxPostId_ = 0;
+var insertCommentTimer;
 
 
 
@@ -262,6 +263,10 @@ function insertPosts(data) {
 							<!--<li class="btnSupport"><span>ファイト！</span></li>-->\
 						</ul>\
 						<ul class="qualifications"></ul>\
+						<div class="commentArea">\
+							<ul>\
+							</ul>\
+						</div>\
 					</dd>\
 				</dl>\
 			</li>\
@@ -350,7 +355,10 @@ function insertComment() {
 		.done(function(data) {
 			// console.log(data);
 
-			if (data[0].length === 0) return;
+			if (data[0].length === 0) {
+				// alert('ok');
+				return;
+			}
 
 			// コメント挿入処理
 			// alert(data[0][0]['Comment']['post_id']);
@@ -385,7 +393,7 @@ function insertComment() {
 		});
 	});
 
-	setTimeout('insertComment()', 5000);
+	insertCommentTimer = setTimeout('insertComment()', 1000);
 }
 /**
 * コメント投稿処理
@@ -1927,7 +1935,6 @@ $(function () {
 				alert('今日の記録はすでに登録されています。');
 			} else {
 				alert('お疲れ様でした');
-				location.href = '../studylog/';
 			}
 
 			//　お疲れ様でしたエフェクト
