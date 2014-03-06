@@ -27,10 +27,10 @@
 }
 #white_modal .btnArea a,
 #white_modal .btnArea input {
-	background: linear-gradient(#f2f2f2, #e0e0e0);
+	background: #f2f2f2;
+	border: solid 1px #ddd;
 	padding: 0.5em 1em;
 	border-radius: 2px;
-	border: none;
 	font-size: 13px;
 	color: #333;
 	vertical-align: middle;
@@ -38,7 +38,9 @@
 #white_modal .btnArea a:hover,
 #white_modal .btnArea input:hover {
 	cursor: pointer;
-	background: #ccc;
+	color: #f11f73;
+	background: #fff;
+	border: 1px solid #85bb13
 }
 #white_modal {
 	background: rgba(255, 255, 255, 0.97);

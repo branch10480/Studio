@@ -765,7 +765,7 @@ footer p {
 #fsearch > #fsearchArea {
 	width: 299px;
 	margin-left: 40px;
-	border: 1px solid #ccc;
+	border: 1px solid #fff;
 }
 #fsearchArea > .tab {
 	border-bottom: 1px solid #ccc;
@@ -777,6 +777,13 @@ footer p {
 	background: #eee;
 	cursor: pointer;
 	font-size: 12px;
+	color: #999;
+}
+#fsearchArea > .tab > li:hover {
+	color: #333;
+}
+#fsearchArea > .tab > li.current:hover {
+	color: #fff;
 }
 #fsearchArea > .tab > li:first-child {
 	border-left: none;
@@ -835,8 +842,10 @@ footer p {
 	cursor: pointer;
 }
 #fsearchArea .result {
-	height: 600px;
+	height: 500px;
 	overflow: auto;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 }
 #fsearchArea .result .current {
@@ -874,7 +883,7 @@ footer p {
 }
 #fsearchArea dd {
 	margin-left: 20px;
-	width: 189px;
+	width: 184px;
 }
 #fsearchArea p {
 	position: absolute;
