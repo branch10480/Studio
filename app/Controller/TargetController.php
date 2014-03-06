@@ -21,6 +21,7 @@ class TargetController extends AppController {
 
 	public function index() {
 		$this->set('title_for_layout', ' | 目標');
+		$this->set('pageId', 2);
 	}
 
 

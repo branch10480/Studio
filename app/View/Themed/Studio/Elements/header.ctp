@@ -17,15 +17,43 @@ if ($this->Session->check('Auth')) {
 }
 
 
+
+/**
+* Gnavのcurrent表示
+*/
+$gnavCurr00 = '';
+$gnavCurr01 = '';
+$gnavCurr02 = '';
+if (isset($pageId)) {
+	switch ($pageId) {
+		case 0:
+			// タイムライン
+			$gnavCurr00 = ' class="current"';
+			break;
+		case 1:
+			// 勉強時間
+			$gnavCurr01 = ' class="current"';
+			break;
+		case 2:
+			// 目標
+			$gnavCurr02 = ' class="current"';
+			break;
+
+		default:
+			break;
+	}
+}
+
+
 ?>
 <header>
 	<div class="clearfix">
 		<div class="left logo"><a href="<?php echo homeUrl; ?>"><?php echo $this->Html->image('logo_02.png', array('width' => '81', 'alt' => 'Studio')); ?></a></div>
 		<nav id="topNav" class="center">
 			<ul class="clearfix">
-				<li><a href="<?php echo homeUrl; ?>">タイムライン</a></li>
-				<li><a href="<?php echo rootUrl; ?>studylog/">勉強の記録</a></li>
-				<li><a href="<?php echo rootUrl; ?>target/">目標</a></li>
+				<li><a<?php echo $gnavCurr00; ?> href="<?php echo homeUrl; ?>">タイムライン</a></li>
+				<li><a<?php echo $gnavCurr01; ?> href="<?php echo rootUrl; ?>studylog/">勉強の記録</a></li>
+				<li><a<?php echo $gnavCurr02; ?> href="<?php echo rootUrl; ?>target/">目標</a></li>
 			</ul>
 		</nav>
 		<div class="right">

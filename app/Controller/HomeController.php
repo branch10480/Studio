@@ -28,6 +28,7 @@ class HomeController extends AppController {
 
 	public function top() {
 		$this->set('title_for_layout', '');
+		$this->set('pageId', 0);
 	}
 
 	public function fsearch() {

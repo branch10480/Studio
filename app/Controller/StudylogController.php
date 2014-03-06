@@ -22,6 +22,7 @@ class StudylogController extends AppController {
 
 	public function index() {
 		$this->set('title_for_layout', ' | 勉強の記録');
+		$this->set('pageId', 1);
 	}
 
 

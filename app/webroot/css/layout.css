@@ -122,7 +122,8 @@ header li {
 	font-size: 13px;
 	transition: background-color 0.05s linear;
 }
-#topNav li a:hover {
+#topNav li a:hover,
+#topNav li a.current {
 	color: #f11f73;
 	background: #fff;
 }
