@@ -593,9 +593,7 @@ footer p {
 	padding-left: 20px;
 }
 #friend_now h1 {
-	border-top: 1px dashed #999;
-	padding-top: 40px;
-	margin: 40px 0 20px;
+	margin-bottom: 20px;
 	font-size: 17px;
 	font-weight: bold;
 }
@@ -654,6 +652,9 @@ footer p {
 	top: -11px;
 	right: 16px;
 	border-top-width: 0;
+}
+#friend_now aside ul {
+	margin-bottom: 40px;
 }
 #friend_now aside li {
 	padding: 20px 0;

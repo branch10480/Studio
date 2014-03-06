@@ -714,6 +714,11 @@ function setCountdownCal() {
 		console.log("success");
 		console.log(data);
 
+		if (data.length === 0) {
+			$('#friend_now > aside > ul').replaceWith('');
+			return;
+		}
+
 		var tagStr = '';
 		for (var i=0; i<data.length; i++) {
 			tagStr += '\
