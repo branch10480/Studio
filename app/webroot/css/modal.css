@@ -27,13 +27,17 @@
 }
 #white_modal .btnArea a,
 #white_modal .btnArea input {
+	line-height: 1;
 	background: #f2f2f2;
 	border: solid 1px #ddd;
-	padding: 0.5em 1em;
+	padding: 7px 13px;
 	border-radius: 2px;
 	font-size: 13px;
 	color: #333;
 	vertical-align: middle;
+}
+#white_modal .btnArea input {
+	padding: 8px 14px;
 }
 #white_modal .btnArea a:hover,
 #white_modal .btnArea input:hover {
