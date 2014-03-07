@@ -53,7 +53,7 @@ if (isset($pageId)) {
 			<ul class="clearfix">
 				<li><a<?php echo $gnavCurr00; ?> href="<?php echo homeUrl; ?>">タイムライン</a></li>
 				<li><a<?php echo $gnavCurr01; ?> href="<?php echo rootUrl; ?>studylog/">勉強の記録</a></li>
-				<li><a<?php echo $gnavCurr02; ?> href="<?php echo rootUrl; ?>target/">目標</a></li>
+				<li><a<?php echo $gnavCurr02; ?> href="<?php echo rootUrl; ?>target/">目標設定</a></li>
 			</ul>
 		</nav>
 		<div class="right">
