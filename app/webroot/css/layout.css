@@ -538,10 +538,9 @@ footer p {
 }
 .commentArea > ul {
 	margin: 20px 0 0;
-	border-top: 1px dotted #ccc;
 }
 .commentArea > ul > li {
-	border-bottom: dotted 1px #ccc;
+	border-top: dotted 1px #ccc;
 	padding: 10px 0;
 }
 .commentArea dl dd {
